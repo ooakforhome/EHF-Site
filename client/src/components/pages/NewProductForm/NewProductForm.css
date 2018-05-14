@@ -1,0 +1,34 @@
+.spdFormContainer {
+  width:830px;
+  height:100%;
+  margin:auto;
+}
+.spdFormInnerContainer {
+  width:800px;
+  height:100%;
+  display:inline-block;
+  margin:auto;
+  box-shadow: 3px 3px 3px 3px gray;
+}
+
+input {
+  margin: 5px;
+  float: left;
+}
+
+.spdForm {
+  display:block;
+  clear: both;
+}
+
+.formsize {
+  width:100%;
+  float:left;
+  clear: both;
+  display:block
+}
+
+.feature {
+  width:90%;
+  padding: 5px;
+}

@@ -1,0 +1,47 @@
+{
+  "name": "EHF-Inventory-App",
+  "version": "1.0.0",
+  "description": "EHF - Application",
+  "proxy": "http://localhost:3001/",
+  "main":"server.js",
+  "scripts":{
+    "start": "react-scripts start",
+    "server": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+    },
+  "author": "David Chen",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "*",
+    "nodemon": "*",
+    "autoprefixer-loader": "*",
+    "babel-cli": "*",
+    "babel-loader": "*",
+    "babel-preset-latest": "*",
+    "babel-preset-react": "*",
+    "babel-preset-stage-0": "*",
+    "css-loader": "*",
+    "json-loader": "*",
+    "node-sass": "*",
+    "sass-loader": "*",
+    "style-loader": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*"
+    },
+  "dependencies": {
+    "axios": "*",
+    "body-parser": "*",
+    "express": "*",
+    "mongoose": "*",
+    "multer": "*",
+    "gridfs-stream": "*",
+    "multer-gridfs-storage":"*",
+    "react": "*",
+    "react-dom": "*",
+    "react-router-dom": "*",
+    "react-scripts": "*",
+    "react-redux": "*",
+    "redux": "*",
+    "redux-thunk": "*"
+    }
+}

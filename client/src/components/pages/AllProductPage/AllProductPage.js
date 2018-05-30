@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../actions/productsActions';
-import API from "../../../utils/API";
-import CategoriesNav from '../../compoentParts/Nav/CategoriesNav';
+import CategoriesNav from '../../componentParts/Nav/CategoriesNav';
+import "./allproduct.css";
 
 //SPD to AllProductPage
 class AllProductPage extends Component {
@@ -11,7 +11,7 @@ class AllProductPage extends Component {
     this.handleClickthenav = this.handleClickthenav.bind(this);
   }
 
-
+//mount Redux data info.
   componentWillMount() {
     this.props.fetchProducts();
   }
@@ -25,13 +25,13 @@ class AllProductPage extends Component {
     e.preventDefault();
     console.log(e.target.id)
   }
-
+// Body of visual part
   render() {
     const postItems = this.props.posts.map(post => (
       <div key={post._id} className="item_container">
     		<div className="innerBody">
           <div className="item_img">
-            <img className="tImg" src="GetImageFromGridFS.jpg"/>
+            <img className="tImg" alt={post.name} src="GetImageFromGridFS.jpg"/>
           </div>
       	  <div><p>Furniture</p></div>
       		<div className="item_info_box">

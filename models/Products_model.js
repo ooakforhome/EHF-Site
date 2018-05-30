@@ -6,30 +6,30 @@ var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
 //----database model-----
 var productSchema = new Schema({
     cattype : {type: String },
-    image : { type: Schema.Types.ObjectId, ref: 'File' },
+    image : { data: Buffer, contentType: String },
     name: {type: String },
-    shipping_weight : {type: String },
-    product_weight : {type: String },
+    shipping_weight : {type: Number },
+    product_weight : {type: Number },
     color : {type: String },
     cartons : {type: String },
-    pkg_width : {type: String },
-    pkg_height : {type: String },
-    pkg_depth : {type: String },
-    actual_width : {type: String },
-    actual_height : {type: String },
-    actual_depth : {type: String },
+    pkg_width : {type: Number },
+    pkg_height : {type: Number },
+    pkg_depth : {type: Number },
+    actual_width : {type: Number },
+    actual_height : {type: Number },
+    actual_depth : {type: Number },
     materials : {type: String },
     care_instructions : {type: String },
     assembly_required : {type: String },
     Warranty : {type: String },
     detail_measurement : {type: String },
     features : {type: String },
-    shelf_length : {type: String },
-    shelf_width : {type: String },
-    inches_btw_shelf : {type: String },
-    drawer_length : {type: String },
-    drawer_width : {type: String },
-    drawer_height : {type: String },
+    shelf_length : {type: Number },
+    shelf_width : {type: Number },
+    inches_btw_shelf : {type: Number },
+    drawer_length : {type: Number },
+    drawer_width : {type: Number },
+    drawer_height : {type: Number },
     shelf_weight_capacity : {type: String },
     solar_panel : {type: String },
     led_color : {type: String },
@@ -40,7 +40,6 @@ var productSchema = new Schema({
     capacity : {type: String }
 })
 
-var File = mongoose.model('File', FileSchema);
 const Product = module.exports = mongoose.model ('Product', productSchema);
 
 module.exports = {

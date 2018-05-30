@@ -2,30 +2,27 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import TopNav from '../../componentParts/Nav/TopNav';
-import './spdform.css';
-import { Link } from 'react-router-dom'
-import API from "../../../utils/API";
-
+import {ImgUpload} from '../../componentParts/ImgUpload/ImgUpload'
+import './newProductForm.css';
 
 //Change SpdForm to NewProductForm
 class NewProductForm extends Component {
   constructor(props){
     super(props)
     this.state = {
-      _id:'',
+      cattype:'',
       image:'',
       name:'',
-      color:'',
       shipping_weight:'',
       product_weight:'',
+      color:'',
+      cartons:'',
       pkg_width:'',
       pkg_height:'',
       pkg_depth:'',
       actual_width:'',
       actual_height:'',
       actual_depth:'',
-      cattype:'',
-      cartons:'',
       materials:'',
       care_instructions:'',
       assembly_required:'',
@@ -55,56 +52,56 @@ class NewProductForm extends Component {
   onChange = (e) => {
     this.setState({[e.target.name]: e.target.value});
   }
+
   handleOnImgChange = e => {
     e.preventDefault();
     this.setState({
       image: e.target.files[0]
     });
   }
-  onSubmit(e) {
-      e.preventDefault();
-      const post = {
-        name: this.state.name,
-        color: this.state.color,
-        shipping_weight: this.state.shipping_weight,
-        product_weight: this.state.product_weight,
-        pkg_width: this.state.pkg_width,
-        pkg_height: this.state.pkg_height,
-        pkg_depth: this.state.pkg_depth,
-        actual_width: this.state.actual_width,
-        actual_height: this.state.actual_height,
-        actual_depth: this.state.actual_depth,
-        cattype: this.state.cattype,
-        image: this.state.image,
-        cartons: this.state.cartons,
-        materials: this.state.materials,
-        care_instructions: this.state.care_instructions,
-        assembly_required: this.state.assembly_required,
-        Warranty: this.state.Warranty,
-        detail_measurement: this.state.detail_measurement,
-        features: this.state.features,
-        shelf_length: this.state.shelf_length,
-        shelf_width: this.state.shelf_width,
-        inches_btw_shelf: this.state.inches_btw_shelf,
-        drawer_length: this.state.drawer_length,
-        drawer_width: this.state.drawer_width,
-        drawer_height: this.state.drawer_height,
-        shelf_weight_capacity: this.state.shelf_weight_capacity,
-        solar_panel: this.state.solar_panel,
-        led_color: this.state.led_color,
-        led: this.state.led,
-        uv: this.state.uv,
-        battery_included: this.state.battery_included,
-        battery_type: this.state.battery_type,
-        capacity: this.state.capacity
-      };
 
+  onSubmit() {
+      const post = {
+        cattype:this.state.cattype,
+        image :this.state.image,
+        name :this.state.name,
+        shipping_weight :this.state.shipping_weight,
+        product_weight :this.state.product_weight,
+        color :this.state.color,
+        cartons :this.state.cartons,
+        pkg_width :this.state.pkg_width,
+        pkg_height :this.state.pkg_height,
+        pkg_depth :this.state.pkg_depth,
+        actual_width :this.state.actual_width,
+        actual_height :this.state.actual_height,
+        actual_depth :this.state.actual_depth,
+        materials :this.state.materials,
+        care_instructions :this.state.care_instructions,
+        assembly_required :this.state.assembly_required,
+        Warranty :this.state.Warranty,
+        detail_measurement :this.state.detail_measurement,
+        features :this.state.features,
+        shelf_length :this.state.shelf_length,
+        shelf_width :this.state.shelf_width,
+        inches_btw_shelf :this.state.inches_btw_shelf,
+        drawer_length :this.state.drawer_length,
+        drawer_width :this.state.drawer_width,
+        drawer_height :this.state.drawer_height,
+        shelf_weight_capacity :this.state.shelf_weight_capacity,
+        solar_panel :this.state.solar_panel,
+        led_color :this.state.led_color,
+        led :this.state.led,
+        uv :this.state.uv,
+        battery_included :this.state.battery_included,
+        battery_type :this.state.battery_type,
+        capacity :this.state.capacity
+      }
       this.props.createPost(post)
         .then( res => {
-            window.location = '/productdetail/'+res.data._id
+          window.location = '/'
         })
-            console.log("success")
-    }
+          console.log("success")
+    };
 
   render(){
     return(
@@ -112,6 +109,7 @@ class NewProductForm extends Component {
       <TopNav />
       <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
+        <ImgUpload />
         <form onSubmit={this.onSubmit}>
           <input
               name="cattype"

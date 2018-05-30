@@ -8,12 +8,12 @@ class TopNav extends Component {
     return(
       <div className="topnav">
         <NavLink to="/" activeClassName="selected">
-          <button>HOME </button>
+          <button> HOME </button>
         </NavLink>
-        <NavLink to="/spd" activeClassName="selected">
+        <NavLink to="/allproductpage" activeClassName="selected">
           <button> PRODUCT </button>
         </NavLink>
-        <NavLink to="/spdform" activeClassName="selected">
+        <NavLink to="/newproductform" activeClassName="selected">
           <button> FORM </button>
         </NavLink>
       </div>

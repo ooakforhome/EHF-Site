@@ -12,6 +12,7 @@ export const fetchProducts = () => dispatch => {
   );
 };
 
+
 export const fetchOne = id => dispatch => {
   axios.get("/api/products/" + id)
   .then(res => res.data)
@@ -23,11 +24,13 @@ export const fetchOne = id => dispatch => {
   );
 };
 
+
+
 export const createPost = postData => dispatch => {
   axios.post("/api/products", postData)
     .then(res => res.data)
     .then(post =>
-      dispatch({
+      dispatch ({
         type: NEW_POST,
         payload: post
       })
@@ -44,7 +47,6 @@ export const updateProduct = (id, info)=> dispatch => {
     })
   );
 };
-
 
 
 // =====FETCH FORMAT=======

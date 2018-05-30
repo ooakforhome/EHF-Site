@@ -7,6 +7,14 @@ export default {
   getUpload: function(filename) {
     return axios.get('/api/image/'+ filename);
   },
+  // Gets all users
+  getUsers: function() {
+    return axios.get("/api/users");
+  },
+  // save users
+  saveUser: function() {
+    return axios.post("/api/users");
+  },
   // Gets all products
   getProducts: function() {
     return axios.get("/api/products");

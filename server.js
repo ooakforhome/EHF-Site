@@ -1,113 +1,107 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const path = require("path");
-const crypto = require("crypto");
-const multer = require("multer");
-const GridFsStorage = require("multer-gridfs-storage");
-const Grid = require("gridfs-stream");
-
+const path = require('path');
+const crypto = require ('crypto');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
 const app = express();
-const Port = process.env.Port || 3001;
-
-// Setup express
+const PORT = process.env.PORT || 3001;
 app.use(bodyParser.json());
 app.use(express.static("client/public"));
-
-// Setup promises with mongoose
+// Set up promises with mongoose
 mongoose.Promise = global.Promise;
 
-// Setup Mongo URI
+//----edit
+// Mongo URI
 const mongoURI = "mongodb://localhost/EHF";
 const conn = mongoose.createConnection(mongoURI);
+//----edit end
 
-mongoose .connect (process.env.MONGODB_URI || mongoURI);
+mongoose.connect( process.env.MONGODB_URI || mongoURI)
 
 const routes = require("./controllers/ehfController");
 app.use(routes);
 
-// Setup for GridFS =======
+//----edit
 let gfs;
 
 conn.once('open', () => {
+  // Init stream
   gfs = Grid(conn.db, mongoose.mongo);
-    // bucketName should match this collection name
+      // bucketName should match this collection name
   gfs.collection('uploads');
 })
 
-// Create storeage engine
+// Create storage engine
 const storage = new GridFsStorage({
   url: mongoURI,
   file: (req, file) => {
     return new Promise((resolve, reject) => {
       crypto.randomBytes(16, (err, buf) => {
-        if(err){
+        if (err) {
           return reject(err);
         }
-        const filename = buf.toString('hex') +
-        path.extname(file.originalname);
-        const metainfo = file.originalname;
+        const filename = buf.toString('hex') + path.extname(file.originalname);
         const fileInfo = {
           filename: filename,
-          metadata: metainfo,
+          metadata: file.originalname,
           bucketName: 'uploads'
         };
-        resolve (fileInfo);
+        resolve(fileInfo);
       });
     });
   }
 });
 const upload = multer({ storage });
 
-// Upload Images ---------------------------
-app.post('/api/uploads', upload.single('file'), (req,res) => {
+// upload images
+app.post('/api/uploads', upload.single('file'), (req, res) => {
   console.log(res.json())
   // res.redirect('/');
-});
+})
 
-// Get all Images --------------------------
-app.get('/api/files', (req, res) => {
-  gfs.files.find().toArray((err, files) => {
-    if(!files || files.length === 0){
+//read all getImages
+app.get('/api/files', (req, res) =>{
+  gfs.files.find().toArray((err, files)=>{
+    // Check if files
+    if(!files || files.length === 0) {
       return res.status(404).json({
-        err: "NO FILES EXIST"
+        err: 'No files exist'
       });
     }
-    return res.json(files)
+
+    //Files exist
+    return res.json(files);
   });
 });
 
-// Get single Image by file name
-app.get('/api/image/:filename', (req, res) => {
+// @route GET /image/:filename
+// @desc Display image
+app.get('/api/image/:filename', (req, res) =>{
   gfs.files.findOne({filename: req.params.filename}, (err, file) => {
     if(!file || file.length === 0) {
       return res.status(404).json({
-        err: "NO FILE EXIST"
+        err: 'No files exist'
       });
     }
+    // Check if image
     if(file.contentType === 'image/jpeg' || file.contentType === 'img/png'){
+      // Read output to browser
       const readstream = gfs.createReadStream(file.filename);
       readstream.pipe(res);
     } else {
       res.status(404).json({
-        err: "NOT AN IMAGE"
+        err: 'Not an image'
       })
     }
   })
 });
+//----edit end
 
-app.delete('/files/:id', (req, res) => {
-  gfs.remove({_id: req.params.id, root: 'uploads'}, (err, gridStore) => {
-    if(err){
-      return res.status(404).json({err: err})
-    }
-    console.log(res);
-    //res.redirect('/');
-  });
+//------------------------------------------------------------------------------
+// Start the API server
+app.listen(PORT, function() {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
 });
-
-
-//-----------------send to local host ------------------------------------
-app.listen(Port, () => {
-    console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-})

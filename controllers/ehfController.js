@@ -4,25 +4,37 @@ const mongoose = require("mongoose");
 const router = require("express").Router();
 
 //Models
-const Product = require('../models/products_model');
-const ProductInfo = require('../models/ProductInfo_model');
-const ClientProduct = require('../models/ClientProduct_model');
-const Ehf = require('../models/Ehf_model');
+const Company = require('../models/Companies_model');
+const Product = require('../models/Products_model');
+const Pet = require('../models/Pets_model');
 const Note = require('../models/Notes');
+
 
 //router
 router.get('/', function(req,res){
-  res.send("ehf api/ehfs");
+  res.send("company api/users");
 });
 
-router.route("/api/ehfs")
-    .get(Ehf.getEhf)
-    .post(Ehf.addEhf);
+// router.route("/api/files")
+//     .then()
 
-router.route("/api/ehf/:_id")
-    .get(Ehf.getEhfById)
-    .put(Ehf.updateEhf)
-    .delete(Ehf.deleteEhf);
+router.route("/api/users")
+    .get(Company.getCompanies)
+    .post(Company.addCompany);
+
+router.route("/api/users/:_id")
+    .get(Company.getCompaniesById)
+    .put(Company.updateCompany)
+    .delete(Company.deleteCompany);
+
+router.route("/api/pets")
+    .get(Pet.getPets)
+    .post(Pet.addPet);
+
+router.route("/api/pets/:_id")
+    .get(Pet.getPetsById)
+    .put(Pet.updatePet)
+    .delete(Pet.deletePet);
 
 router.route("/api/products")
     .get(Product.getProducts)
@@ -32,24 +44,6 @@ router.route("/api/products/:_id")
     .get(Product.getProductsById)
     .put(Product.updateProduct)
     .delete(Product.deleteProduct);
-
-router.route("/api/productinfos")
-    .get(ProductInfo.getProductInfo)
-    .post(ProductInfo.addProductInfo);
-
-router.route("/api/productinfo/:_id")
-    .get(ProductInfo.getProductInfoById)
-    .put(ProductInfo.updateProductInfo)
-    .delete(ProductInfo.deleteProductInfo);
-
-router.route("/api/clientProducts")
-    .get(ClientProduct.getClientProduct)
-    .post(ClientProduct.addClientProduct);
-
-router.route("/api/clientProduct/:_id")
-    .get(ClientProduct.getClientProductById)
-    .put(ClientProduct.updateClientProduct)
-    .delete(ClientProduct.deleteClientProduct);
 
 router.route("/api/notes")
     .get(Note.getNotes)

@@ -7,8 +7,8 @@ export class HomePage extends Component {
 	constructor(props) {
     super(props);
 		this.state = {
-			email: "apple",
-			password: "12345"
+			email: "LOGIN E-MAIL",
+			password: "PASSWORD"
 		};
 		this.handleInputChange = this.handleInputChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);

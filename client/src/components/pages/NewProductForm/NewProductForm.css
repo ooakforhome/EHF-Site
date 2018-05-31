@@ -11,9 +11,33 @@
   box-shadow: 3px 3px 3px 3px gray;
 }
 
-input {
+.input_box {
+  width:250px;
+  display: inline-block;
   margin: 5px;
+  padding: 5px;
+}
+.input_box_small {
+  width: 100px;
+  display: inline-block;
+  padding: 5px;
+  margin-left: 20px;
+}
+.size_box {
+  width: 398px;
+  margin: auto;
   float: left;
+  padding: 5px;
+}
+.formHR {
+  width: 90%;
+  margin: auto;
+  border: 1px solid black;
+}
+.other_box {
+  display: block;
+  margin: 5px;
+  border: 1px dotted black;
 }
 
 .spdForm {

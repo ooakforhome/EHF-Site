@@ -15,9 +15,6 @@ router.get('/', function(req,res){
   res.send("company api/users");
 });
 
-// router.route("/api/files")
-//     .then()
-
 router.route("/api/users")
     .get(Company.getCompanies)
     .post(Company.addCompany);

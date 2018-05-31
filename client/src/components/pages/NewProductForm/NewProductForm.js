@@ -1,334 +1,274 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
-import TopNav from '../../componentParts/Nav/TopNav';
-import {ImgUpload} from '../../componentParts/ImgUpload/ImgUpload'
+import { Field, reduxForm } from "redux-form";
+import { Link } from "react-router-dom";
 import './newProductForm.css';
 
 //Change SpdForm to NewProductForm
 class NewProductForm extends Component {
-  constructor(props){
-    super(props)
-    this.state = {
-      cattype:'',
-      image:'',
-      name:'',
-      shipping_weight:'',
-      product_weight:'',
-      color:'',
-      cartons:'',
-      pkg_width:'',
-      pkg_height:'',
-      pkg_depth:'',
-      actual_width:'',
-      actual_height:'',
-      actual_depth:'',
-      materials:'',
-      care_instructions:'',
-      assembly_required:'',
-      Warranty:'',
-      detail_measurement:'',
-      features:'',
-      shelf_length:'',
-      shelf_width:'',
-      inches_btw_shelf:'',
-      drawer_length:'',
-      drawer_width:'',
-      drawer_height:'',
-      shelf_weight_capacity:'',
-      solar_panel:'',
-      led_color:'',
-      led:'',
-      uv:'',
-      battery_included:'',
-      battery_type:'',
-      capacity:''
-    }
-    this.onChange = this.onChange.bind(this);
-    this.handleOnImgChange = this.handleOnImgChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+
+  renderField(field) {
+    return(
+      <div className={field.className}>
+        <p>{field.label}</p>
+        <input className="form-control" type="text"
+          {...field.input} />
+      </div>
+    );
   }
 
-  onChange = (e) => {
-    this.setState({[e.target.name]: e.target.value});
-  }
-
-  handleOnImgChange = e => {
-    e.preventDefault();
-    this.setState({
-      image: e.target.files[0]
+  onSubmit(values) {
+    this.props.createPost(values, () => {
+      this.props.history.push("/");
     });
   }
 
-  onSubmit() {
-      const post = {
-        cattype:this.state.cattype,
-        image :this.state.image,
-        name :this.state.name,
-        shipping_weight :this.state.shipping_weight,
-        product_weight :this.state.product_weight,
-        color :this.state.color,
-        cartons :this.state.cartons,
-        pkg_width :this.state.pkg_width,
-        pkg_height :this.state.pkg_height,
-        pkg_depth :this.state.pkg_depth,
-        actual_width :this.state.actual_width,
-        actual_height :this.state.actual_height,
-        actual_depth :this.state.actual_depth,
-        materials :this.state.materials,
-        care_instructions :this.state.care_instructions,
-        assembly_required :this.state.assembly_required,
-        Warranty :this.state.Warranty,
-        detail_measurement :this.state.detail_measurement,
-        features :this.state.features,
-        shelf_length :this.state.shelf_length,
-        shelf_width :this.state.shelf_width,
-        inches_btw_shelf :this.state.inches_btw_shelf,
-        drawer_length :this.state.drawer_length,
-        drawer_width :this.state.drawer_width,
-        drawer_height :this.state.drawer_height,
-        shelf_weight_capacity :this.state.shelf_weight_capacity,
-        solar_panel :this.state.solar_panel,
-        led_color :this.state.led_color,
-        led :this.state.led,
-        uv :this.state.uv,
-        battery_included :this.state.battery_included,
-        battery_type :this.state.battery_type,
-        capacity :this.state.capacity
-      }
-      this.props.createPost(post)
-        .then( res => {
-          window.location = '/'
-        })
-          console.log("success")
-    };
-
   render(){
+    const { handleSubmit } = this.props;
+
     return(
       <div className="spdFormContainer">
-      <TopNav />
-      <div className="spdFormInnerContainer">
+        <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
-        <ImgUpload />
-        <form onSubmit={this.onSubmit}>
-          <input
+          <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+            <Field
+              label="Category"
               name="cattype"
-              value = {this.state.cattype}
-              placeholder = "category"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              type="text"
+              className="input_box"
+              component={this.renderField}
+            />
+
+
+            <Field name="cattype" component="select">
+                <option />
+                  <option value="Accent Furniture">Accent Furniture</option>
+                  <option value="Book Case">Book Case</option>
+                  <option value="0000ff">Blue</option>
+            </Field>
+
+
+
+            <Field
+              label="name"
               name="name"
-              placeholder="name"
-              onChange={this.onChange}
-              value={this.state.name} />
-          <input
-              name="image"
-              placeholder = "image"
-              type="file"
-              onChange = {this.onImgChange}/>
-          <input
-              type="text"
-              name="color"
-              placeholder="color"
-              onChange={this.onChange}
-              value={this.state.color} />
-          <input
-              type="text"
-              name="shipping_weight"
-              placeholder="shipping_weight"
-              onChange={this.onChange}
-              value={this.state.shipping_weight} />
-          <input
-              type="text"
-              name="product_weight"
-              placeholder="product_weight"
-              onChange={this.onChange}
-              value={this.state.product_weight} />
-          <input
+              className="input_box"
+              component={this.renderField}
+            />
+            <Field
+              label="materials"
               name="materials"
-              value = {this.state.materials}
-              placeholder = "materials"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
+              className="input_box"
+              component={this.renderField}
+            />
+            <Field
+              label="color"
+              name="color"
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="ship-weight"
+              name="shipping_weight"
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="product_weight"
+              name="product_weight"
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="cartons"
               name="cartons"
-              value = {this.state.cartons}
-              placeholder = "cartons"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="care_instructions"
-              value = {this.state.care_instructions}
-              placeholder = "care_instructions"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="assembly_required"
-              value = {this.state.assembly_required}
-              placeholder = "assembly_required"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="Warranty"
               name="Warranty"
-              value = {this.state.Warranty}
-              placeholder = "Warranty"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="assembly_required"
+              name="assembly_required"
+              className="input_box_small"
+              component={this.renderField}
+            />
+            <Field
+              label="care_instructions"
+              name="care_instructions"
+              className="input_box"
+              component={this.renderField}
+            />
+
+            <Field
+              label="detail_measurement"
               name="detail_measurement"
-              value = {this.state.detail_measurement}
-              placeholder = "detail_measurement"
-              type="text"
-              onChange = {this.onChange}/>
+              className="input_box"
+              component={this.renderField}
+            />
+            <Field
+              label="features"
+              name="features"
+              className="input_box"
+              component={this.renderField}
+            />
 
-          <div className="formsize">
-            <h2>Features</h2>
-              <input
-                  className="feature"
-                  name="features"
-                  value = {this.state.features}
-                  placeholder = "features"
-                  type="text"
-                  onChange = {this.onChange}/>
-          </div>
-
-
-          <div className="formsize">
-          <h2>Product Size</h2>
-          <input
-              type="text"
-              name="pkg_width"
-              placeholder="pkg_width"
-              onChange={this.onChange}
-              value={this.state.pkg_width} />
-          <input
-              type="text"
-              name="pkg_height"
-              placeholder="pkg_height"
-              onChange={this.onChange}
-              value={this.state.pkg_height} />
-          <input
-              type="text"
-              name="pkg_depth"
-              placeholder="pkg_depth"
-              onChange={this.onChange}
-              value={this.state.pkg_depth} />
-          <input
-              type="text"
-              name="actual_width"
-              placeholder="actual_width"
-              onChange={this.onChange}
-              value={this.state.actual_width} />
-          <input
-              type="text"
-              name="actual_height"
-              placeholder="actual_height"
-              onChange={this.onChange}
-              value={this.state.actual_height} />
-          <input
-              type="text"
-              name="actual_depth"
-              placeholder="actual_depth"
-              onChange={this.onChange}
-              value={this.state.actual_depth} />
-          <input
-              name="shelf_length"
-              value = {this.state.shelf_length}
-              placeholder = "shelf_length"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="shelf_width"
-              value = {this.state.shelf_width}
-              placeholder = "shelf_width"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="inches_btw_shelf"
-              value = {this.state.inches_btw_shelf}
-              placeholder = "inches_btw_shelf"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="drawer_length"
-              value = {this.state.drawer_length}
-              placeholder = "drawer_length"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="drawer_width"
-              value = {this.state.drawer_width}
-              placeholder = "drawer_width"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="drawer_height"
-              value = {this.state.drawer_height}
-              placeholder = "drawer_height"
-              type="text"
-              onChange = {this.onChange}/>
-          </div>
-
-          <div className="formsize">
-          <h2>Other</h2>
-          <input
-              name="shelf_weight_capacity"
-              value = {this.state.shelf_weight_capacity}
-              placeholder = "shelf_weight_capacity"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="solar_panel"
-              value = {this.state.solar_panel}
-              placeholder = "solar_panel"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="led_color"
-              value = {this.state.led_color}
-              placeholder = "led_color"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="led"
-              value = {this.state.led}
-              placeholder = "led"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="uv"
-              value = {this.state.uv}
-              placeholder = "uv"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="battery_included"
-              value = {this.state.battery_included}
-              placeholder = "battery_included"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="battery_type"
-              value = {this.state.battery_type}
-              placeholder = "battery_type"
-              type="text"
-              onChange = {this.onChange}/>
-          <input
-              name="capacity"
-              value = {this.state.capacity}
-              placeholder = "capacity"
-              type="text"
-              onChange = {this.onChange}/>
+            <div className="size_box">
+                <Field
+                  label="pkg_width"
+                  name="pkg_width"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="pkg_height"
+                  name="pkg_height"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="pkg_depth"
+                  name="pkg_depth"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
             </div>
-            <br />
-          <button type="submit" className="spdForm">Submit</button>
-        </form>
+            <div className="size_box">
+                <Field
+                  label="actual_width"
+                  name="actual_width"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="actual_height"
+                  name="actual_height"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="actual_depth"
+                  name="actual_depth"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+            </div>
+            <div className="size_box">
+                <Field
+                  label="shelf_length"
+                  name="shelf_length"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="shelf_width"
+                  name="shelf_width"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="inches_btw_shelf"
+                  name="inches_btw_shelf"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+            </div>
+
+            <div className="size_box">
+                <Field
+                  label="drawer_length"
+                  name="drawer_length"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="drawer_width"
+                  name="drawer_width"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+                <Field
+                  label="drawer_height"
+                  name="drawer_height"
+                  className="input_box_small"
+                  component={this.renderField}
+                />
+            </div>
+            <hr className="formHR" />
+            <div className="other_box">
+                <Field
+                  label="shelf_weight_capacity"
+                  name="shelf_weight_capacity"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="solar_panel"
+                  name="solar_panel"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="led_color"
+                  name="led_color"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="led"
+                  name="led"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="uv"
+                  name="uv"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="battery_included"
+                  name="battery_included"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="battery_type"
+                  name="battery_type"
+                  className="input_box"
+                  component={this.renderField}
+                />
+                <Field
+                  label="capacity"
+                  name="capacity"
+                  className="input_box"
+                  component={this.renderField}
+                />
+            </div>
+            <button type="submit" className="btn btn-primary">Submit</button>
+          </form>
         </div>
       </div>
     )
   }
 }
 
-export default connect(null, { createPost })(NewProductForm);
+function validate(values){
+  const errors = {};
+
+  if(!values.cattype) {
+    errors.cattype = "What is the category type?";
+  }
+
+  return errors;
+}
+
+
+export default reduxForm({
+  validate,
+  form: "PostsNewProduct"
+})(connect(null, { createPost })(NewProductForm));

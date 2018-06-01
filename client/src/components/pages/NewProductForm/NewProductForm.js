@@ -18,6 +18,10 @@ class NewProductForm extends Component {
     );
   }
 
+
+
+
+
   onSubmit(values) {
     this.props.createPost(values, () => {
       this.props.history.push("/");
@@ -32,23 +36,26 @@ class NewProductForm extends Component {
         <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-            <Field
-              label="Category"
-              name="cattype"
-              className="input_box"
-              component={this.renderField}
-            />
-
-
-            <Field name="cattype" component="select">
-                <option />
-                  <option value="Accent Furniture">Accent Furniture</option>
-                  <option value="Book Case">Book Case</option>
-                  <option value="0000ff">Blue</option>
-            </Field>
-
-
-
+            <div>
+              <p>Category Type</p>
+              <Field name="cattype" component="select" className="input_box">
+                  <option />
+                    <option value="Accent Furniture">Accent Furniture</option>
+                    <option value="Book Case">Book Case</option>
+                    <option value="Bathroom Furniture">Bathroom Furniture</option>
+                    <option value="Bath Accessories">Bath Accessories</option>
+                    <option value="Hooks And Rods">Hooks And Rods</option>
+                    <option value="Bath Hardware">Bath Hardware</option>
+                    <option value="Over The">Over The</option>
+                    <option value="Window Hardware">Window Hardware</option>
+                    <option value="Window Panels">Window Panels</option>
+                    <option value="Shower Curtain">Shower Curtain</option>
+                    <option value="Beauty Device">Beauty Device</option>
+                    <option value="Garden Barrels">Garden Barrels</option>
+                    <option value="Outdoor Lighting">Outdoor Lighting</option>
+                    <option value="Pet Products">Pet Products</option>
+              </Field>
+            </div>
             <Field
               label="name"
               name="name"
@@ -91,12 +98,29 @@ class NewProductForm extends Component {
               className="input_box_small"
               component={this.renderField}
             />
-            <Field
-              label="assembly_required"
-              name="assembly_required"
-              className="input_box_small"
-              component={this.renderField}
-            />
+            <div className="input_box">
+                <label>"Assembly Requir?"</label>
+                <div>
+                  <label className="form_radio">
+                    <Field
+                      name="assembly_required"
+                      component="input"
+                      type="radio"
+                      value="YES"
+                    />{' '}
+                    YES
+                  </label>
+                  <label className="form_radio">
+                    <Field
+                      name="assembly_required"
+                      component="input"
+                      type="radio"
+                      value="NO"
+                    />{' '}
+                    NO
+                  </label>
+                </div>
+            </div>
             <Field
               label="care_instructions"
               name="care_instructions"

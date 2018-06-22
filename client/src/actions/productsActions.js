@@ -1,10 +1,11 @@
-import { FETCH_PRODUCTS, FETCH_ONE, NEW_POST, UPDATE_POST} from './types';
+import { FETCH_PRODUCTS, NEW_POST, FETCH_ONE, UPDATE_POST, FETCH_IMG, NEW_IMG, ALL_IMG } from './types'
+
 import axios from 'axios';
 
 export const fetchProducts = () => dispatch => {
   axios.get('/api/products')
-    .then(res => res.data)
-    .then(posts =>
+  .then(res => res.data)
+  .then(posts =>
     dispatch({
       type: FETCH_PRODUCTS,
       payload: posts
@@ -25,7 +26,6 @@ export const fetchOne = id => dispatch => {
 };
 
 
-
 export const createPost = postData => dispatch => {
   axios.post("/api/products", postData)
     .then(res => res.data)
@@ -34,8 +34,10 @@ export const createPost = postData => dispatch => {
         type: NEW_POST,
         payload: post
       })
-    );
+    )
+  return window.location = '/allproductpage'
 };
+
 
 export const updateProduct = (id, info)=> dispatch => {
   axios.put("/api/products/" + id, info)
@@ -48,17 +50,36 @@ export const updateProduct = (id, info)=> dispatch => {
   );
 };
 
+export const fetchimgs = () => dispatch => {
+  axios.get('/api/uploadImg')
+  .then(res => res.data)
+  .then(posts =>
+    dispatch({
+      type: FETCH_IMG,
+      payload: posts
+    })
+  );
+};
 
-// =====FETCH FORMAT=======
-// import { FETCH_PRODUCTS } from './types';
-//
-// export const fetchProducts = () => dispatch => {
-//   fetch('/api/products')
-//     .then(res => res.json())
-//     .then(posts =>
-//     dispatch({
-//       type: FETCH_PRODUCTS,
-//       payload: posts
-//     })
-//   );
-// };
+export const uploadimg = postData => dispatch => {
+  axios.post("/api/uploadImg", postData)
+    .then(res => res.data)
+      .then(post =>
+        dispatch ({
+          type: NEW_IMG,
+          payload: post
+        })
+      )
+    return window.location = '/allproductpage'
+};
+
+export const loadImg = () => dispatch => {
+  axios.get('/api/files')
+    .then(res => res.data)
+      .then(posts =>
+        dispatch({
+          type: ALL_IMG,
+          payload: posts
+        })
+    );
+};

@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-import { Link } from "react-router-dom";
+// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+// import { Link } from "react-router-dom";
 import './newProductForm.css';
+
 
 //Change SpdForm to NewProductForm
 class NewProductForm extends Component {
@@ -17,10 +19,6 @@ class NewProductForm extends Component {
       </div>
     );
   }
-
-
-
-
 
   onSubmit(values) {
     this.props.createPost(values, () => {
@@ -38,7 +36,7 @@ class NewProductForm extends Component {
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <div>
               <p>Category Type</p>
-              <Field name="cattype" component="select" className="input_box">
+              <Field name="category_type" component="select" className="input_box">
                   <option />
                     <option value="Accent Furniture">Accent Furniture</option>
                     <option value="Book Case">Book Case</option>
@@ -60,6 +58,12 @@ class NewProductForm extends Component {
               label="name"
               name="name"
               className="input_box"
+              component={this.renderField}
+            />
+            <Field
+              label="sku"
+              name="sku"
+              className="input_box_small"
               component={this.renderField}
             />
             <Field
@@ -222,6 +226,14 @@ class NewProductForm extends Component {
                   component={this.renderField}
                 />
             </div>
+            <div>
+              <Field
+                label="product description"
+                name="product_description"
+                className="input_box_max"
+                component={this.renderField}
+              />
+            </div>
             <hr className="formHR" />
             <div className="other_box">
                 <Field
@@ -284,8 +296,8 @@ class NewProductForm extends Component {
 function validate(values){
   const errors = {};
 
-  if(!values.cattype) {
-    errors.cattype = "What is the category type?";
+  if(!values.category_type) {
+    errors.category_type = "What is the category type?";
   }
 
   return errors;

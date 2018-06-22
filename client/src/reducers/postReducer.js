@@ -8,10 +8,10 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type){
     case FETCH_PRODUCTS:
-      return {
-        ...state,
-        items: action.payload
-      };
+    return {
+      ...state,
+      items: action.payload
+    };
     case FETCH_ONE:
     return {
       ...state,
@@ -26,7 +26,7 @@ export default function(state = initialState, action) {
     return {
       ...state,
       item: action.payload
-    }
+    };
     default:
       return state;
   }

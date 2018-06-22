@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import API from "../../../utils/API";
+import "./style.css";
 
 export class ImgUpload extends Component {
   constructor (props){
@@ -23,9 +24,10 @@ export class ImgUpload extends Component {
     let formData = new FormData();
 
     formData.append('file', this.state.file);
-    console.log(this.state.file);
-    API.addUpload(formData)
-    e.target.reset()
+    // console.log(this.state.file);
+    API.uploadImg(formData)
+    console.log(formData);
+    // e.target.reset()
   }
 
   render(){
@@ -35,16 +37,18 @@ export class ImgUpload extends Component {
             encType="multipart/form-data"
             onSubmit={this._handleSubmit} >
           <input
-            className="fileInput"
+            className="fileInput inlineBlk"
             type="file"
             name= "file"
             id="file"
             onChange={this._handleImageChange} />
            <button
-           type="submit">
-              save
+             className="saveBtn inlineBlk"
+             type="submit">
+                save
            </button>
         </form>
+
       </div>
     )
   }

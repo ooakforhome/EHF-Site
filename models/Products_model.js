@@ -5,9 +5,10 @@ var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
 
 //----database model-----
 var productSchema = new Schema({
-    cattype : {type: String },
+    category_type : {type: String },
     image : { data: Buffer, contentType: String },
     name: {type: String },
+    sku: {type: String},
     shipping_weight : {type: Number },
     product_weight : {type: Number },
     color : {type: String },
@@ -23,6 +24,7 @@ var productSchema = new Schema({
     assembly_required : {type: String },
     Warranty : {type: String },
     detail_measurement : {type: String },
+    product_description: {type: String},
     features : {type: String },
     shelf_length : {type: Number },
     shelf_width : {type: Number },

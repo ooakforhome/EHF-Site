@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import './nav.css'
+import './nav.css';
 
 
 class CategoriesNav extends Component {
+
+  // clickthenav = (e) => {
+  //   e.preventDefault();
+  //     const linkName = e.name.value().split(' ').join(' ', '_');
+  //     console.log(linkName);
+  //     window.location = '/page/' + linkName;
+  // }
 
   render(){
     const navLists = ["Accent Furniture", "Book Case", "Bathroom Furniture", "Bath Accessories", "Hooks And Rods", "Bath Hardware", "Over The Door", "Window Hardware", "Window Panels", "Shower Curtain", "Beauty Device", "Garden Barrels", "Outdoor Lighting", "Pet Products"];
@@ -19,4 +26,3 @@ class CategoriesNav extends Component {
 }
 
 export default CategoriesNav;
- 

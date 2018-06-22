@@ -1,20 +1,24 @@
 import axios from "axios";
 
 export default {
-  addUpload: function(file) {
-    return axios.post('/api/uploads', file);
+  uploadthis: function(file){
+    return axios.post('/api/uploadthis', file)
   },
-  getUpload: function(filename) {
-    return axios.get('/api/image/'+ filename);
+  uploadImg: function(file){
+    return axios.post('/api/uploads/', file);
   },
-  // Gets all users
-  getUsers: function() {
-    return axios.get("/api/users");
+  loadimg: function(metadata){
+    return axios.get('/use/image/'+ metadata)
   },
-  // save users
-  saveUser: function() {
-    return axios.post("/api/users");
+  addUpload: function(photo) {
+    return axios.post('/api/uploadImg/', photo);
   },
+  // getAllImgs: function(){
+  //   return axios.get('/api/uploadImg');
+  // },
+  // getUpload: function(filename) {
+  //   return axios.get('/api/image/'+ filename);
+  // },
   // Gets all products
   getProducts: function() {
     return axios.get("/api/products");
@@ -33,22 +37,5 @@ export default {
   },
   updateProduct: function(id, productData){
     return axios.put("/api/products/" + id, productData);
-  },
-  // Gets all notes
-  getNotes: function() {
-    return axios.get("/api/notes");
-  },
-  // Gets the product with the given id
-  getNote: function(id) {
-    return axios.get("/api/notes/" + id);
-  },
-  // Deletes the product with the given id
-  deleteNote: function(id) {
-    return axios.delete("/api/notes/" + id);
-  },
-  // Saves a product to the database
-  saveNote: function(noteData) {
-    return axios.post("/api/notes", noteData);
   }
-
 };

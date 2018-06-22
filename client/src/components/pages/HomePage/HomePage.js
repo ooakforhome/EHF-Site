@@ -1,5 +1,6 @@
 import React, { Component}  from 'react';
 import API from '../../../utils/API';
+import { Link } from 'react-router-dom'
 import './hP.css';
 
 
@@ -35,7 +36,7 @@ export class HomePage extends Component {
   	return(
 			<div className='fp_container'>
 				<div className='login_block'>
-				  <form className='fp_form' onSubmit={this.handleSubmit}>
+				  <form className='fp_form'  onSubmit={this.handleSubmit}>
 						<p className='fp_title'>ELEGANT HOME FASHIONS</p>
 				    <input id='email'
 										className='fp_input'
@@ -52,9 +53,11 @@ export class HomePage extends Component {
 										value = {this.state.password}
 										onChange = {this.handleInputChange}
 										placeholder='password' />
-
 						<input className='fp_submit' type="submit" value="Submit" />
 				  </form>
+					<Link to="/AllProductPage">
+						<button>ALL Products</button>
+					</Link>
 				</div>
 			</div>
 		)

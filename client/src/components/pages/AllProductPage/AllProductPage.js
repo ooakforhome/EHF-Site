@@ -33,8 +33,6 @@ class AllProductPage extends Component {
         )}
       </div>
     )
-
-
     return(
       <div>
         <CategoriesNav clickthenav = {this.handleClickthenav} />

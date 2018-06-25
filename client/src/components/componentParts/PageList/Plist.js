@@ -30,13 +30,3 @@ export const Prender = ({_id, name, image, color, shipping_weight, product_weigh
       </div>
     </div>
 )
-
-
-// export const Plist = ({products}) => (
-//   <div>
-//     {products.map((product, i) =>
-//       <Prender  key={i}
-//               {...product}/>
-//     )}
-//   </div>
-// )

@@ -21,7 +21,7 @@ class AllProductPage extends Component {
     e.preventDefault();
     const theName = e.target.id.split(' ').join('_');
     console.log(theName)
-    window.location = '/allproductpage/'+theName;
+    window.location = '/'+theName;
   }
 // Body of visual part
   render() {

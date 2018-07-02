@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, NEW_POST, FETCH_ONE, UPDATE_POST, FETCH_IMG, NEW_IMG, ALL_IMG } from './types'
+import { FETCH_PRODUCTS, NEW_POST, FETCH_ONE, UPDATE_POST, FETCH_IMG, NEW_IMG, ALL_IMG,  FETCH_ACCENT } from './types'
 
 import axios from 'axios';
 
@@ -13,6 +13,16 @@ export const fetchProducts = () => dispatch => {
   );
 };
 
+export const fetchAccent = () => dispatch => {
+  axios.get('/api/product/accentfurniture')
+  .then(res => res.data)
+  .then(posts =>
+    dispatch({
+      type: FETCH_ACCENT,
+      payload: posts
+    })
+  );
+};
 
 export const fetchOne = id => dispatch => {
   axios.get("/api/products/" + id)
@@ -24,7 +34,6 @@ export const fetchOne = id => dispatch => {
     })
   );
 };
-
 
 export const createPost = postData => dispatch => {
   axios.post("/api/products", postData)
@@ -83,3 +92,17 @@ export const loadImg = () => dispatch => {
         })
     );
 };
+
+// testing for product with image
+  //insert photo
+// export const createProImg = (postData,photo) => dispatch => {
+//   axios.post("/api/products/", postData)
+//     .then( info => info.data)
+//     .then( post =>
+//       dispatch ({
+//         type: NEW_POSTIMG,
+//         payload: post
+//       })
+//     )
+//     return console.log("complete");
+// };

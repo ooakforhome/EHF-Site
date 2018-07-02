@@ -2,12 +2,11 @@ import React from 'react';
 
 const handleClick=(e)=>{
   e.preventDefault();
-    console.log('click it');
-    window.location ='/productdetail/'+ e.target._id
+    window.location ='/productdetail/'+ e.target.value;
   }
 
 export const Prender = ({_id, name, image, color, shipping_weight, product_weight, pkg_width, pkg_height, pkg_depth, actual_width, actual_height, actual_depth, onClick}) => (
-    <div key={_id} className="item_container">
+    <div className="item_container">
       <div className="innerBody">
         <div className="item_img">
           <img className="tImg" alt={name} src={image}/>
@@ -21,9 +20,9 @@ export const Prender = ({_id, name, image, color, shipping_weight, product_weigh
           <p className="item_size"> Package Dimensions: {pkg_width}W x {pkg_height}H x {pkg_depth}D </p>
           <p className="item_size"> Actural Dimensions: {actual_width}W x {actual_height}H x {actual_depth}D </p>
         </div>
-        <div key={_id} className="edit_box">
+        <div className="edit_box">
         <hr />
-        <button className="item_edit_button" onClick={handleClick}>
+        <button value={_id} className="item_edit_button" onClick={handleClick}>
           Detail
         </button>
         </div>

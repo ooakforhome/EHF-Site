@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
-// import { Link } from "react-router-dom";
+// import { UploadImg } from "../UploadImgs/UploadImgs_working_as_component"
 import './newProductForm.css';
 
 
@@ -54,6 +53,9 @@ class NewProductForm extends Component {
                     <option value="Pet Products">Pet Products</option>
               </Field>
             </div>
+            <label>Profile Picture</label>
+        <Field name="image" component="input" type="file" />
+
             <Field
               label="name"
               name="name"

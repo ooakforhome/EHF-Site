@@ -1,14 +1,17 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const ImageSchema = require('./image');
 
 
 const ProductSchema = new Schema({
+  category_type : {type: String },
   name: String,
   sku: String,
   upc: String,
   color: String,
-  images: [ImageSchema],
+  images: [{
+    type: Schema.Types.ObjectId,
+    ref: 'image'
+  }],
   product_size: {
     product_length: Number,
     product_width: Number,
@@ -52,6 +55,19 @@ const ProductSchema = new Schema({
   }
 })
 
-const Product = mongoose.model('product', ProductSchema);
+const Product = module.exports = mongoose.model('product', ProductSchema);
 
-module.exports = Product;
+module.exports = {
+  getProducts: function(req, res){
+    Product.find(req.query)
+      .populate('image')
+        .then(model => res.json(model))
+          .catch(err => res.status(422).json(err));
+  },
+
+  saveProducts: function(req, res){
+    Product.create(req.body)
+        .then((res) => res.save())
+          .catch(err => res.status(422).json(err));
+  }
+}

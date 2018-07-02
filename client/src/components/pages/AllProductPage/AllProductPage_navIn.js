@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../actions/productsActions';
-import CategoriesNav from '../../componentParts/Nav/CategoriesNav';
+// import CategoriesNav from '../../componentParts/Nav/CategoriesNav';
+import '../../componentParts/Nav/nav.css'
 import {Prender} from '../../componentParts/PageList/Plist';
 import "./allproduct.css";
 
@@ -9,7 +10,7 @@ import "./allproduct.css";
 class AllProductPage extends Component {
   constructor(props){
     super(props)
-    this.handleClickthenav = this.handleClickthenav.bind(this);
+    this.clickthenav = this.clickthenav.bind(this);
   }
 
 //mount Redux data info.
@@ -17,7 +18,7 @@ class AllProductPage extends Component {
     this.props.fetchProducts();
   }
 
-  handleClickthenav = (e) => {
+  clickthenav = (e) => {
     e.preventDefault();
     const theName = e.target.id.split(' ').join('_');
     console.log(theName)
@@ -33,9 +34,13 @@ class AllProductPage extends Component {
         )}
       </div>
     )
+    const navLists = ["Accent Furniture", "Book Case", "Bathroom Furniture", "Bath Accessories", "Hooks And Rods", "Bath Hardware", "Over The Door", "Window Hardware", "Window Panels", "Shower Curtain", "Beauty Device", "Garden Barrels", "Outdoor Lighting", "Pet Products"];
+
+    const listMaps = navLists.map((navList) => <ul key={navList}><li id={navList} onClick={this.clickthenav} className="navlist" name={navList}>{navList}</li></ul>);
+
     return(
       <div>
-        <CategoriesNav clickthenav = {this.handleClickthenav} />
+        <nav className='cat-nav'>{listMaps}</nav>
         <h1>Products - {this.props.match.params.category_type}</h1>
         <Plist products = {this.props.posts}/>
       </div>

@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
+// var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
 
 //----database model-----
 var productSchema = new Schema({
     category_type : {type: String },
-    image : { data: Buffer, contentType: String },
+    image : [{ type: Buffer, ref: 'uploads' }],
     name: {type: String },
     sku: {type: String},
     shipping_weight : {type: Number },
@@ -76,5 +76,11 @@ module.exports = {
             .then(dbModel => dbModel.remove())
             .then(dbModel => res.json(dbModel))
             .catch(err => res.status(422).json(err));
-    }
+    },
+        findCategory: function(req, res) {
+          Product
+            .find({category_type: "Accent Furniture"})
+              .then(dbModel => res.json(dbModel))
+              .catch(err => res.status(422).json(err));
+        }
 };

@@ -8,14 +8,14 @@ const Product = require('../models/Products_model');
 const AccentFurniture = require('../models/Accent_Furniture_model');
 
 //router
-router.route("/api/accentFurniture")
-    .get(AccentFurniture.getAccent)
-    .post(AccentFurniture.addAccent);
-
-router.route("/api/accentFurniture/:_id")
-    .get(AccentFurniture.getAccentById)
-    .put(AccentFurniture.updateAccent)
-    .delete(AccentFurniture.deleteAccent);
+// router.route("/api/accentFurniture")
+//     .get(AccentFurniture.getAccent)
+//     .post(AccentFurniture.addAccent);
+//
+// router.route("/api/accentFurniture/:_id")
+//     .get(AccentFurniture.getAccentById)
+//     .put(AccentFurniture.updateAccent)
+//     .delete(AccentFurniture.deleteAccent);
 
 router.route("/api/products")
     .get(Product.getProducts)

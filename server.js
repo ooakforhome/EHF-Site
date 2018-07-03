@@ -144,7 +144,7 @@ app.delete('/api/files', (req, res) => {
           // Read output to browser
           const readstream = gfs.createReadStream(file.filename);
           readstream.pipe(res);
-        } else {
+          } else {
           res.status(404).json({
             err: 'Not an image'
           })
@@ -154,7 +154,7 @@ app.delete('/api/files', (req, res) => {
 //----edit end
 
     app.get('/api/images/:metadata', (req, res) =>{
-  console.log(req.params.metadata);
+        console.log(req.params.metadata);
       gfs.files.findOne({metadata: req.params.metadata}, (err, file) => {
     console.log(file);
     if(file.contentType === 'image/jpeg' || file.contentType === 'img/png'){

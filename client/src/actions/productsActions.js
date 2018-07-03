@@ -1,4 +1,4 @@
-import { FETCH_PRODUCTS, NEW_POST, FETCH_ONE, UPDATE_POST, FETCH_IMG, NEW_IMG, ALL_IMG,  FETCH_ACCENT } from './types'
+import { FETCH_PRODUCTS, NEW_POST, FETCH_ONE, UPDATE_POST, FETCH_IMG, NEW_IMG, ALL_IMG } from './types'
 
 import axios from 'axios';
 
@@ -8,17 +8,6 @@ export const fetchProducts = () => dispatch => {
   .then(posts =>
     dispatch({
       type: FETCH_PRODUCTS,
-      payload: posts
-    })
-  );
-};
-
-export const fetchAccent = () => dispatch => {
-  axios.get('/api/product/accentfurniture')
-  .then(res => res.data)
-  .then(posts =>
-    dispatch({
-      type: FETCH_ACCENT,
       payload: posts
     })
   );

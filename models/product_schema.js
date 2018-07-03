@@ -10,7 +10,7 @@ const ProductSchema = new Schema({
   color: String,
   images: [{
     type: Schema.Types.ObjectId,
-    ref: 'image'
+    ref: 'uploads/file'
   }],
   product_size: {
     product_length: Number,
@@ -64,10 +64,19 @@ module.exports = {
         .then(model => res.json(model))
           .catch(err => res.status(422).json(err));
   },
-
   saveProducts: function(req, res){
     Product.create(req.body)
         .then((res) => res.save())
           .catch(err => res.status(422).json(err));
+  },
+  getOneProduct: function(req, res){
+    Product.findById(req.params._id)
+      .then(model => res.json(model))
+        .catch(err => res.status(422))
+  },
+  update: function(req, res){
+    Products.findOneAndUpdate({_id: req.params._id}, req.body)
+      .then(model=> res.json(model))
+        .catch(err => res.status(422))
   }
 }

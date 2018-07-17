@@ -6,7 +6,7 @@ export class UploadImg extends Component {
   constructor (props){
     super(props)
         this.state = {
-          file: ''
+          file: []
         }
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -22,12 +22,16 @@ export class UploadImg extends Component {
   _handleSubmit = e => {
     e.preventDefault();
     let formData = new FormData();
-
     formData.append('file', this.state.file);
     // console.log(this.state.file);
-    API.uploadthis(formData)
-    console.log(formData);
-    // e.target.reset()
+    API.uploadImg(formData)
+    // window.location = '/newproductform';
+    window.location = "/newproductform"
+  }
+
+  _nextPage =(e)=>{
+    e.preventDefault();
+    window.location = "/newproductform"
   }
 
   render(){
@@ -36,19 +40,21 @@ export class UploadImg extends Component {
         <form
             encType="multipart/form-data"
             onSubmit={this._handleSubmit} >
+        <div>
+          <p>CHOOSE THE PRODUCT IMAGE</p>
           <input
             className="fileInput inlineBlk"
             type="file"
-            name= "photo"
+            name= "file"
             id="file"
             onChange={this._handleImageChange} />
+        </div>
            <button
              className="saveBtn inlineBlk"
              type="submit">
-                save
+                Save
            </button>
         </form>
-
       </div>
     )
   }

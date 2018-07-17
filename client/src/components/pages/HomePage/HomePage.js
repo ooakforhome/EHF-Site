@@ -56,7 +56,10 @@ export class HomePage extends Component {
 						<input className='fp_submit' type="submit" value="Submit" />
 				  </form>
 					<Link to="/AllProductPage">
-						<button>ALL Products</button>
+						<button>All Products</button>
+					</Link>
+					<Link to="/uploadimg">
+						<button>Add Product</button>
 					</Link>
 				</div>
 			</div>

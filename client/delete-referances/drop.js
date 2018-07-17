@@ -2,12 +2,30 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+import API from "../../../utils/API";
 // import { Link } from "react-router-dom";
 import './newProductForm.css';
 
 //Change SpdForm to NewProductForm
 class NewProductForm extends Component {
+
+  constructor (props){
+    super(props)
+        this.state = {
+          imgId: []
+        }
+        this._handleImageChange = this._handleImageChange.bind(this);
+        this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({imgId:""})
+  }
+
+  componentDidUpdate(){
+    this.loadImg();
+  }
 
   renderField(field) {
     return(
@@ -19,12 +37,42 @@ class NewProductForm extends Component {
     );
   }
 
-  onSubmit(values) {
-    this.props.createPost(values, () => {
-      this.props.history.push("/");
-    });
+  _handleImageChange(e) {
+    e.preventDefault();
+      this.setState({
+        file: e.target.files[0]
+      });
   }
- 
+
+  loadImg = () => {
+    API.getLastImg()
+      .then( res =>
+        this.setState({
+          imgId: res.data
+        })
+      )
+      .catch( err => console.log(err));
+  }
+
+  _handleSubmit = e => {
+    e.preventDefault();
+    let formData = new FormData();
+
+    formData.append('file', this.state.file);
+    // console.log(this.state.file);
+    API.uploadImg(formData)
+    e.target.reset()
+    this.loadImg();
+  }
+
+  onSubmit(values) {
+    values.images = this.state.imgId[0]._id;
+    console.log(values);
+    // this.props.createPost(values, () => {
+    //   console.log(values);
+    // });
+  }
+
   render(){
     const { handleSubmit } = this.props;
 
@@ -32,7 +80,21 @@ class NewProductForm extends Component {
       <div className="spdFormContainer">
         <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
-                    <ImgUpload />
+        <form
+            encType="multipart/form-data"
+            onSubmit={this._handleSubmit} >
+          <input
+            className="fileInput inlineBlk"
+            type="file"
+            name= "file"
+            id="file"
+            onChange={this._handleImageChange} />
+           <button
+             className="saveBtn inlineBlk"
+             type="submit">
+                save
+           </button>
+        </form>
           <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
             <div>
               <p>Category Type</p>

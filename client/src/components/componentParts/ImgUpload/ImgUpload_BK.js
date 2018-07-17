@@ -6,7 +6,7 @@ export class ImgUpload extends Component {
   constructor (props){
     super(props)
         this.state = {
-          file: []
+          file: ''
         }
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);

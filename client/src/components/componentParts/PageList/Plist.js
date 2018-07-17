@@ -5,13 +5,13 @@ const handleClick=(e)=>{
     window.location ='/productdetail/'+ e.target.value;
   }
 
-export const Prender = ({_id, name, image, color, shipping_weight, product_weight, pkg_width, pkg_height, pkg_depth, actual_width, actual_height, actual_depth, onClick}) => (
+export const Prender = ({_id, name, category_type, images, color, shipping_weight, product_weight, pkg_width, pkg_height, pkg_depth, actual_width, actual_height, actual_depth, onClick}) => (
     <div className="item_container">
       <div className="innerBody">
         <div className="item_img">
-          <img className="tImg" alt={name} src={image}/>
+          <img className="tImg" alt={name} src={"http://localhost:3001/api/image/"+ images}/>
         </div>
-        <div><p>Furniture</p></div>
+        <div><p>Category: {category_type}</p></div>
         <div className="item_info_box">
           <p className="item_name">Product Name: {name}</p>
           <p className="item_color"> Color: {color}</p>

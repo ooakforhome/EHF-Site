@@ -11,6 +11,17 @@
   box-shadow: 3px 3px 3px 3px gray;
 }
 
+.img_div {
+  width: 90%;
+  padding: 10px;
+}
+
+.img_size {
+  width: 150px;
+  height: 150px;
+  margin: 0 50%;
+}
+
 .input_box {
   width:250px;
   display: inline-block;

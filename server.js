@@ -124,6 +124,14 @@ app.get('/api/files', (req, res) =>{
   });
 });
 
+//----find last
+app.get('/api/fileid', (req, res) =>{
+  gfs.files.find().limit(1).sort({_id:-1}).toArray((err, files)=>{
+    return res.json(files);
+  });
+});
+//-------------
+
 app.delete('/api/files', (req, res) => {
   gfs.files.findById({_id: req.params._id}, (req,file)=>{
     console.log(res);

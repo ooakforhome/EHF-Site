@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchOne } from '../../../actions/productsActions';
 import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
+import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
 import API from '../../../utils/API';
 import './detail.css'
 
@@ -11,7 +12,6 @@ class ProductDetail extends Component {
     super(props)
         this.state = {
         product: [],
-        images:'',
         name:'',
         color:'',
         pkg_width:0,
@@ -67,7 +67,7 @@ class ProductDetail extends Component {
             <div className="item_img">
               <img className="tImg"
                  alt={post._id}
-                 src={"http://localhost:3001/api/image/"+post.images}
+                 src={post._id}
               />
             </div>
             <div>
@@ -83,13 +83,11 @@ class ProductDetail extends Component {
             </div>
           </div>
         </div>
-
-        <div>
-          <UpdateParts
-           submitEdit = {this.submitEdit}
-           onChanges = {this.onChanges}
-           />
-        </div>
+        <ImgUpload />
+        <UpdateParts
+         submitEdit = {this.submitEdit}
+         onChanges = {this.onChanges}
+         />
       </div>
       );
     }

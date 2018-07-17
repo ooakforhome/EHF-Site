@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-import { ShowImg } from "../UploadImgs/ShowImg";
 // import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
 import API from "../../../utils/API";
 // import { Link } from "react-router-dom";
@@ -19,7 +18,7 @@ class NewProductForm extends Component {
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
   }
-
+ 
   componentDidMount(){
     this.setState({imgId:["update"]})
   }
@@ -82,12 +81,21 @@ class NewProductForm extends Component {
       <div className="spdFormContainer">
         <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
-
-        <div className="img_div">
-          <ShowImg/>
-        </div>
-        <hr />
-
+        <form
+            encType="multipart/form-data"
+            onSubmit={this._handleSubmit} >
+          <input
+            className="fileInput inlineBlk"
+            type="file"
+            name= "file"
+            id="file"
+            onChange={this._handleImageChange} />
+           <button
+             className="saveBtn inlineBlk"
+             type="submit">
+                save
+           </button>
+        </form>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
             <p>Category Type</p>

@@ -33,7 +33,7 @@ export const createPost = postData => dispatch => {
         payload: post
       })
     )
-  return window.location = '/newproductform'
+  return window.location = '/allproductpage'
 };
 
 

@@ -16,12 +16,3 @@ export default function(state = initialState, action){
       return state;
   }
 }
-
-
-//mapStateToProps needs to be a function
-const mapStateToProps = ({ reducer1, reducer2}) =>
-    ({reducer1, reducer2 });
-
-connect(mapStateToProps, mapDispatchToProps, mergeProps, options)(component)
-
-//mapDispatchToProps can either be a function or an object.

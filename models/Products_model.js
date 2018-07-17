@@ -6,7 +6,7 @@ const Schema = mongoose.Schema;
 //----database model-----
 var productSchema = new Schema({
     category_type : {type: String },
-    image : [{ type: Buffer, ref: 'uploads' }],
+    images:{type: String},
     name: {type: String },
     sku: {type: String},
     shipping_weight : {type: Number },

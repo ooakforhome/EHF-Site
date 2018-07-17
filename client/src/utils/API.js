@@ -4,11 +4,16 @@ export default {
   uploadthis: function(file){
     return axios.post('/api/uploadthis', file)
   },
+  //server multer
   uploadImg: function(file){
     return axios.post('/api/uploads/', file);
   },
-  loadimg: function(metadata){
-    return axios.get('/use/image/'+ metadata)
+  getLastImg: function(){
+    return axios.get('/api/fileid')
+  },
+  // end server multer
+  loadimg: function(filename){
+    return axios.get('/api/image/'+ filename)
   },
   addUpload: function(photo) {
     return axios.post('/api/uploadImg/', photo);
@@ -36,6 +41,6 @@ export default {
     return axios.post("/api/products", productData);
   },
   updateProduct: function(id, productData){
-    return axios.put("/api/products/" + id, productData);
+    return axios.put(`/api/products/${id}`, productData);
   }
 };

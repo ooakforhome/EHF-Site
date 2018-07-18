@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchOne } from '../../../actions/productsActions';
 import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
-import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+import { ImgUpdate } from '../../componentParts/ImgUpdate/ImgUpdate';
 import API from '../../../utils/API';
 import './detail.css'
 
@@ -12,6 +12,8 @@ class ProductDetail extends Component {
     super(props)
         this.state = {
         product: [],
+        file:[],
+        images:'',
         name:'',
         color:'',
         pkg_width:0,
@@ -30,16 +32,45 @@ class ProductDetail extends Component {
      .catch(err => console.log(err));
  }
 
+ componentDidUpdate(){
+   this.loadImg();
+ }
+
+ loadImg = () => {
+   API.getLastImg()
+     .then( res =>
+       this.setState({
+         images: res.data[0].filename
+       })
+     )
+     .catch( err => console.log(err));
+ }
+
   onChanges = (e) => {
     this.setState({
       [e.target.name]: e.target.value
     })
   }
 
+  _handleImageChange(e) {
+    e.preventDefault();
+      this.setState({
+        file: e.target.files[0]
+      });
+  }
+
+  _handleSubmit = e => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append('file', this.state.file);
+    API.uploadImg(formData)
+  }
+
   submitEdit = (e) => {
     e.preventDefault()
     API.updateProduct(this.props.match.params.id, {
       name: this.state.name,
+      images: this.state.images,
       color: this.state.color,
       pkg_width: this.state.pkg_width,
       pkg_height: this.state.pkg_height,
@@ -67,7 +98,7 @@ class ProductDetail extends Component {
             <div className="item_img">
               <img className="tImg"
                  alt={post._id}
-                 src={post._id}
+                 src={"http://localhost:3001/api/image/"+post.images}
               />
             </div>
             <div>
@@ -83,11 +114,17 @@ class ProductDetail extends Component {
             </div>
           </div>
         </div>
-        <ImgUpload />
-        <UpdateParts
-         submitEdit = {this.submitEdit}
-         onChanges = {this.onChanges}
-         />
+
+        <div>
+          <UpdateParts
+           submitEdit = {this.submitEdit}
+           onChanges = {this.onChanges}
+           />
+          <ImgUpdate
+            _handleSubmit = {this._handleSubmit.bind(this)}
+            _handleImageChange = {this._handleImageChange.bind(this)}
+          />
+        </div>
       </div>
       );
     }

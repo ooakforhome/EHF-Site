@@ -6,6 +6,8 @@ export class UpdateParts extends Component{
      <div className='productEditClass'>
        <h2>EDIT SECTION</h2>
          <br/>
+
+         <br/>
        <div>
          <p className='editInpu'>Name</p>
          <input

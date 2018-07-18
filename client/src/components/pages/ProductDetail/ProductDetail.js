@@ -11,12 +11,7 @@ class ProductDetail extends Component {
     super(props)
         this.state = {
         product: [],
-        images:'',
-        name:'',
-        color:'',
-        pkg_width:0,
-        pkg_height:0,
-        pkg_depth:0
+        file:[]
       }
  }
 
@@ -25,9 +20,7 @@ class ProductDetail extends Component {
  }
 
  componentDidMount =()=> {
-   API.getProduct(this.props.match.params.id)
-     .then(res => this.setState({ product: res.data }))
-     .catch(err => console.log(err));
+   this.props.fetchOne(this.props.match.params.id);
  }
 
   onChanges = (e) => {
@@ -40,6 +33,7 @@ class ProductDetail extends Component {
     e.preventDefault()
     API.updateProduct(this.props.match.params.id, {
       name: this.state.name,
+      images: this.state.images,
       color: this.state.color,
       pkg_width: this.state.pkg_width,
       pkg_height: this.state.pkg_height,
@@ -63,7 +57,7 @@ class ProductDetail extends Component {
               </Link>
           </div>
            <hr />
-          <div className="innerBody">
+          <div className="product_box">
             <div className="item_img">
               <img className="tImg"
                  alt={post._id}
@@ -84,7 +78,7 @@ class ProductDetail extends Component {
           </div>
         </div>
 
-        <div>
+        <div className="updateBlock">
           <UpdateParts
            submitEdit = {this.submitEdit}
            onChanges = {this.onChanges}

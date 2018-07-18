@@ -2,14 +2,33 @@ import React, { Component } from "react";
 import API from "../../../utils/API";
 import "./style.css";
 
-export class ImgUpload extends Component {
+export class ImgUpdate extends Component {
   constructor (props){
     super(props)
         this.state = {
-          file: []
+          file: [],
+          img: []
         }
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
+  }
+
+  componentDidMount(){
+    this.setState({imgId:["update"]})
+  }
+
+  componentDidUpdate(){
+    this.loadImg();
+  }
+
+  loadImg = () => {
+    API.getLastImg()
+      .then( res =>
+        this.setState({
+          images: res.data
+        })
+      )
+      .catch( err => console.log(err));
   }
 
   _handleImageChange(e) {
@@ -22,12 +41,8 @@ export class ImgUpload extends Component {
   _handleSubmit = e => {
     e.preventDefault();
     let formData = new FormData();
-
     formData.append('file', this.state.file);
-    // console.log(this.state.file);
     API.uploadImg(formData)
-    console.log(formData);
-    // e.target.reset()
   }
 
   render(){

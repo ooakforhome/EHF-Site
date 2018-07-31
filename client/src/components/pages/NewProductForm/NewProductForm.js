@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-import { ShowImg } from "../UploadImgs/ShowImg";
-// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+// import { ShowImg } from "../UploadImgs/ShowImg";
+import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
 import API from "../../../utils/API";
 // import { Link } from "react-router-dom";
 import './newProductForm.css';
@@ -14,14 +14,14 @@ class NewProductForm extends Component {
   constructor (props){
     super(props)
         this.state = {
-          imgId: []
+          imgId: ''
         }
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
   }
 
   componentDidMount(){
-    this.setState({imgId:["update"]})
+    this.setState({imgId:"update"})
   }
 
   componentDidUpdate(){
@@ -55,8 +55,6 @@ class NewProductForm extends Component {
       });
   }
 
-
-
   _handleSubmit = e => {
     e.preventDefault();
     let formData = new FormData();
@@ -78,13 +76,19 @@ class NewProductForm extends Component {
   render(){
     const { handleSubmit } = this.props;
 
+      // if(!files){
+      //   return <div>wait for image</div>
+      // }
     return(
       <div className="spdFormContainer">
         <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
 
         <div className="img_div">
-          <ShowImg/>
+          <ImgUpload />
+          <div>
+            <img className="img_size" alt="test" src={"http://localhost:3001/api/image/"+this.state.imgId} />
+          </div>
         </div>
         <hr />
 

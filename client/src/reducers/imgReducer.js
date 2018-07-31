@@ -1,22 +1,14 @@
-import { FETCH_IMG, NEW_IMG } from '../actions/types';
+import _ from "lodash";
+import { FETCH_POSTS, FETCH_POST, DELETE_POST } from "../actions";
 
-const initialState = {
-  images: [],
-  image: {}
-};
-
-export default function(state = initialState, action) {
-  switch(action.type){
-    case FETCH_IMG:
-      return {
-        ...state,
-        images: action.payload
-      };
-    case NEW_IMG:
-      return {
-        ...state,
-        image: action.payload
-      };
+export default function(state = {}, action) {
+  switch (action.type) {
+    case DELETE_POST:
+      return _.omit(state, action.payload);//if the state has the payload id, then omit it
+    case FETCH_POST:
+      return { ...state, [action.payload.data.id]: action.payload.data };
+    case FETCH_POSTS:
+      return _.mapKeys(action.payload.data, "id");
     default:
       return state;
   }

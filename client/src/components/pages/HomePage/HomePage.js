@@ -58,7 +58,7 @@ export class HomePage extends Component {
 					<Link to="/AllProductPage">
 						<button>All Products</button>
 					</Link>
-					<Link to="/uploadimg">
+					<Link to="/newproductform">
 						<button>Add Product</button>
 					</Link>
 				</div>

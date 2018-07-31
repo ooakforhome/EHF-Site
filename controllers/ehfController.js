@@ -5,18 +5,11 @@ const router = require("express").Router();
 
 //Models
 const Product = require('../models/Products_model');
-const AccentFurniture = require('../models/Accent_Furniture_model');
+const Bath = require('../models/Bath_model');
+const Accentfurniture = require('../models/accentfurniture_schema');
+const Pet = require('../models/Pet_model');
 
 //router
-// router.route("/api/accentFurniture")
-//     .get(AccentFurniture.getAccent)
-//     .post(AccentFurniture.addAccent);
-//
-// router.route("/api/accentFurniture/:_id")
-//     .get(AccentFurniture.getAccentById)
-//     .put(AccentFurniture.updateAccent)
-//     .delete(AccentFurniture.deleteAccent);
-
 router.route("/api/products")
     .get(Product.getProducts)
     .post(Product.addProduct);
@@ -26,15 +19,31 @@ router.route("/api/products/:_id")
     .put(Product.updateProduct)
     .delete(Product.deleteProduct);
 
-router.route("/api/product/accentfurniture")
-    .get(Product.findCategory);
+router.route("/api/baths")
+    .get(Bath.getBaths)
+    .post(Bath.addBath);
+
+router.route("/api/bath/:_id")
+    .get(Bath.getBathsById)
+    .put(Bath.updateBath)
+    .delete(Bath.deleteBath);
+
+router.route("/api/accents")
+    .get(Accentfurniture.getAccentfurnitures)
+    .post(Accentfurniture.addAccentfurniture);
+
+router.route("/api/accent/:_id")
+    .get(Accentfurniture.getAccentfurnituresById)
+    .put(Accentfurniture.updateAccentfurniture)
+    .delete(Accentfurniture.deleteAccentfurniture);
+
+router.route("/api/pets")
+    .get(Pet.getPets)
+    .post(Pet.addPet);
+
+router.route("/api/pet/:_id")
+    .get(Pet.getPetById)
+    .put(Pet.updatePet)
+    .delete(Pet.deletePet);
 
 module.exports = router;
-
-// //=========example================================
-// router.route("/api/accentFurniture")
-//     .post(function(req, res) {
-//       User.create(req.body)
-//         .then(dbModel => res.json(dbModel))
-//         .catch(err => res.status(422).json(err));
-//     });

@@ -1,20 +1,20 @@
-var pic = new picSchema(
-  { image:
-      { data: Buffer, contentType: String }
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const Bath = require('./Bath_model');
+const Pet = require('./Pet_model');
+
+const AllProductsSchema = new Schema({
+  baths: [Bath],
+  pets: [Pet]
+})
+
+const AllProduct = module.exports = mongoose.model('AllProduct', AllProductsSchema);
+
+module.exports = {
+  getAllProducts: function(req, res){
+    AllProductPage
+      .find(req.query)
+      .then(dbModel => res.json(dbModel))
+      .catch(err => res.status(422).json(err));
   }
-);
-
-
-app.use(multer({ dest: ‘./uploads/’,
- rename: function (fieldname, filename) {
-   return filename;
- },
-}));
-
-
-app.post(‘/api/picture_upload’,function(req,res){
- var newPic = new pic();
- newPic.image.data = fs.readFileSync(req.files.userPhoto.path)
- newPic.image.contentType = ‘image/png’;
- newPic.save();
-});
+};

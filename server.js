@@ -26,53 +26,6 @@ mongoose.connect( process.env.MONGODB_URI || mongoURI)
 const routes = require("./controllers/ehfController");
 app.use(routes);
 
-
-//-----multer begin
-const multerConfig = {
-  storage: multer.diskStorage({
-    //specify destination
-    destination: function(req, file, next){
-      next(null, './photo-storage');
-    },
-    //specify the filename to be unique
-    filename: function(req, file, next){
-      console.log(file);
-      const ext = file.mimetype.split('/')[1];
-      next(null, file.fieldname + '-' + Date.now() + '.'+ext);
-    }
-  }),
-  // filter out and prevent non-image files.
-  fileFilter: function(req, file, next){
-        if(!file){
-          next();
-        }
-      // only permit image mimetypes
-      const image = file.mimetype.startsWith('image/');
-      if(image){
-        console.log('photo uploaded');
-        next(null, true);
-      }else{
-        console.log("file not supported")
-        //TODO:  A better message response to user on failure.
-        return next();
-      }
-  }
-};
-
-
-/* ROUTES
-**********/
-  app.get('/api/imgthis', function(req, res){
-    res.render('index.html');
-  });
-
-  app.post('/api/uploadthis', multer(multerConfig).single('photo'),function(req, res){
-      res.send('Complete!');
-  }
-);
-//-----multer end
-
-//----edit
 let gfs;
 
 conn.once('open', () => {
@@ -124,18 +77,23 @@ app.get('/api/files', (req, res) =>{
   });
 });
 
-//----find last
+//----find last image by ID
 app.get('/api/fileid', (req, res) =>{
-  gfs.files.find().limit(1).sort({_id:-1}).toArray((err, files)=>{
+  gfs.files.find().sort({_id:-1}).limit(1).toArray((err, files)=>{
+    if(!files || files.length === 0) {
+      return res.status(404).json({
+        err: 'No files exist'
+      });
+    }
+    //Files exist
     return res.json(files);
   });
 });
 //-------------
 
-app.delete('/api/files', (req, res) => {
-  gfs.files.findById({_id: req.params._id}, (req,file)=>{
-    console.log(res);
-  })
+app.delete('/api/files/:id', (req, res) => {
+  gfs.files.findByIdAndRemove({ _id: req.params.id })
+
 })
 
 // @route GET /image/:filename

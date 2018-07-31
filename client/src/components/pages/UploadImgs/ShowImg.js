@@ -10,7 +10,7 @@ export class ShowImg extends Component {
   }
 
   componentDidMount(){
-    this.setState({img:["update"]})
+    this.setState({img:"update"})
   }
 
   componentDidUpdate(){

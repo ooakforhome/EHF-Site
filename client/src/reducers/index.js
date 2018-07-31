@@ -1,14 +1,16 @@
 import { combineReducers } from 'redux';
 import postReducer from './postReducer';
-import imgReducer from './imgReducer';
-import sortReducer from './sortReducer';
+import bathReducer from './bathReducer';
+import petReducer from './petReducer';
+import accentReducer from './accentReducer';
 import { reducer as formReducer } from "redux-form";
 
 const rootReducer = combineReducers({
-  posts: postReducer,
-  imgposts: imgReducer,
+  kposts: postReducer,
+  bathItems: bathReducer,
+  petItems: petReducer,
+  accentItems: accentReducer,
   form: formReducer,
-  accents: sortReducer
 });
 
 export default rootReducer;

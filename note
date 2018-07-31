@@ -1,0 +1,9 @@
+
+// import csv into mongodb database
+C:\User\Home>mongoimport -d dbname -c collectionname --type csv --file filename.csv --headerline
+
+C:\User\Home>
+mongoimport -d EHF -c items --type csv --file C:\Users\David\Desktop\Product_schema_template.csv --headerline
+
+
+mongoimport -d EHF -c pets --type csv --file C:\Users\David\Desktop\EHF-Product_CSV\pet.csv --headerline

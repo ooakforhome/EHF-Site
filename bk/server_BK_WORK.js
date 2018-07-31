@@ -72,6 +72,11 @@ const multerConfig = {
 );
 //-----multer end
 
+// try this: https://stackoverflow.com/questions/48232687/file-upload-express-mongodb-multer
+// or: https://alligator.io/nodejs/uploading-files-multer-express/
+
+// or: https://medium.com/@Moonstrasse/how-to-make-a-basic-html-form-file-upload-using-multer-in-an-express-node-js-app-16dac2476610
+
 //----edit
 let gfs;
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
-import { fetchOne } from '../../../actions/productsActions';
+import { fetchBath } from '../../../actions/bathActionCreator';
 import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
 import {ImgUpdate} from '../../componentParts/ImgUpdate/ImgUpdate'
 import API from '../../../utils/API';
@@ -19,11 +19,11 @@ class ProductDetail extends Component {
  }
 
  componentWillMount() {
-   this.props.fetchOne(this.props.match.params.id);
+   this.props.fetchBath(this.props.match.params.id);
  }
 
  componentDidMount =()=> {
-   this.props.fetchOne(this.props.match.params.id);
+   this.props.fetchBath(this.props.match.params.id);
  }
 
   onChanges = (e) => {
@@ -74,7 +74,7 @@ class ProductDetail extends Component {
 
 
   render(){
-      const { post } = this.props;
+      const { bathItem } = this.props;
     return (
       <div className="detailPage">
         <div className="item_container" style={{visibility: 'visible'}}>
@@ -91,20 +91,20 @@ class ProductDetail extends Component {
           <div className="product_box">
             <div className="item_img">
               <img className="tImg"
-                 alt={post._id}
-                 src={"http://localhost:3001/api/image/"+post.images}
+                 alt={bathItem._id}
+                 src={"http://localhost:3001/api/image/"+bathItem.images}
               />
             </div>
             <div>
-              <p>Category: {post.category_type}</p>
+              <p>Category: {bathItem.category_type}</p>
             </div>
             <div className="item_info_box">
-             <p className="item_name">Product Name: {post.name}</p>
-             <p>SKU: {post.sku}</p>
-             <p>Materials: {post.materials}</p>
-             <p className="item_color"> Color: {post.color}</p>
-             <p className="item_size"> Package Dimensions: {post.pkg_width}W x {post.pkg_height}H x {post.pkg_depth}D </p>
-             <p className="item_size"> Actural Dimensions: {post.actual_width}W x {post.actual_height}H x {post.actual_depth}D </p>
+             <p className="item_name">Product Name: {bathItem.Product_Name}</p>
+             <p>SKU: {bathItem.SKU}</p>
+             <p>Materials: {bathItem.Materials}</p>
+             <p className="item_color"> Color: {bathItem.Color}</p>
+             <p className="item_size"> Package Dimensions: {bathItem.Packing_Carton_Width}W x {bathItem.Packing_Carton_Height}H x {bathItem.Packing_Carton_Depth}D </p>
+             <p className="item_size"> Actural Dimensions: {bathItem.Actual_Product_Width}W x {bathItem.Actual_Product_Height}H x {bathItem.Actual_Product_Length}D </p>
             </div>
           </div>
         </div>
@@ -121,7 +121,7 @@ class ProductDetail extends Component {
   }
 
   const mapStateToProps = state => ({
-    post: state.posts.item
+    bathItem: state.bathItems.item
   });
 
-export default connect(mapStateToProps, { fetchOne } ) (ProductDetail);
+export default connect(mapStateToProps, { fetchBath } ) (ProductDetail);

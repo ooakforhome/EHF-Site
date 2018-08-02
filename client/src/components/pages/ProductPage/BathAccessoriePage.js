@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBaths } from '../../../actions/bathActionCreator';
+import { fetchBathAccessories } from '../../../actions/bathActionCreator';
 import { NPrender } from '../../componentParts/PageList/NPlist';
+// import _ from "lodash";
+// import { Link } from 'react-router-dom';
 
-class BathroomFurniture extends Component {
+class BathroomAccessories extends Component {
 
   componentWillMount(){
-    this.props.fetchBaths();
+    this.props.fetchBathAccessories();
   }
 
   handleClick=(e)=>{
       e.preventDefault();
-        window.location ='/productdetail/bathroom_furniture/'+ e.target.value;
+        window.location ='/productdetail/Bath_Accessories/'+ e.target.value;
   }
 
 
@@ -28,7 +30,7 @@ class BathroomFurniture extends Component {
     )
     return(
       <div>
-        <h1>Bath Furniture</h1>
+        <h1>Bath Accessories</h1>
         <div>
           <NPlist products = {this.props.bathItems}/>
         </div>
@@ -42,4 +44,4 @@ const mapStateToProps = state => ({
   bathItems: state.bathItems.items
 });
 // rewrite the block bc it's in different format
-export default connect(mapStateToProps, { fetchBaths })(BathroomFurniture);
+export default connect(mapStateToProps, { fetchBathAccessories })(BathroomAccessories);

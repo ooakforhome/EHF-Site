@@ -59,8 +59,8 @@ const upload = multer({ storage });
 
 // upload images
 app.post('/api/uploads', upload.single('file'), (req, res) => {
-  console.log(res.json())
-  // res.redirect('/');
+  console.log(req.file);
+	  res.json({'msg': 'File uploaded successfully!', 'file': req.file});
 })
 
 //read all getImages
@@ -91,9 +91,9 @@ app.get('/api/fileid', (req, res) =>{
 });
 //-------------
 
-app.delete('/api/files/:id', (req, res) => {
-  gfs.files.findByIdAndRemove({ _id: req.params.id })
-
+app.delete('/api/files/:_id', (req, res) => {
+  gfs.files.remove({ _id })
+  .then(res=> console.log("deleted successfully"))
 })
 
 // @route GET /image/:filename

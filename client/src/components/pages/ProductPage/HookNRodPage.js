@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchBaths } from '../../../actions/bathActionCreator';
+import { fetchHookNRods } from '../../../actions/smallproductsActionCreator';
 import { NPrender } from '../../componentParts/PageList/NPlist';
+// import _ from "lodash";
+// import { Link } from 'react-router-dom';
 
-class BathroomFurniture extends Component {
+class HookNRodPage extends Component {
 
   componentWillMount(){
-    this.props.fetchBaths();
+    this.props.fetchHookNRods();
   }
 
   handleClick=(e)=>{
       e.preventDefault();
-        window.location ='/productdetail/bathroom_furniture/'+ e.target.value;
+        window.location ='/productdetail/Hooks_And_Rods/'+ e.target.value;
   }
 
 
@@ -28,9 +30,9 @@ class BathroomFurniture extends Component {
     )
     return(
       <div>
-        <h1>Bath Furniture</h1>
+        <h1>Hooks and Rods</h1>
         <div>
-          <NPlist products = {this.props.bathItems}/>
+          <NPlist products = {this.props.smallItems}/>
         </div>
       </div>
     );
@@ -39,7 +41,7 @@ class BathroomFurniture extends Component {
 }
 
 const mapStateToProps = state => ({
-  bathItems: state.bathItems.items
+  smallItems: state.smallItems.items
 });
 // rewrite the block bc it's in different format
-export default connect(mapStateToProps, { fetchBaths })(BathroomFurniture);
+export default connect(mapStateToProps, { fetchHookNRods })(HookNRodPage);

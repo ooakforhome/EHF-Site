@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
-
-//----database model-----
-var productSchema = new Schema({
-  category_type: {type: String},
+const bathaccessorieSchema = new Schema({
   Product_Name: {type: String},
+  category_type: { type: String, default: "Bath Accessories" },
   SKU: {type: String},
   images: {type: String},
   Product_Shipping_Weight: {type: Number},
@@ -64,45 +61,39 @@ var productSchema = new Schema({
   Product_Diameter: { type: Number}
 })
 
-const Product = module.exports = mongoose.model ('Product', productSchema);
+const BathAccessorie = module.exports = mongoose.model ('BathAccessorie', bathaccessorieSchema);
 
-module.exports = {
-        getProducts: function(req, res) {
-          Product
-            .find(req.query)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        // add
-        addProduct: function(req, res) {
-          Product
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        getProductsById: function(req, res) {
-          Product
-            .findById(req.params._id)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        updateProduct: function(req, res) {
-          Product
-            .findOneAndUpdate({ _id: req.params._id }, req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        deleteProduct: function(req, res) {
-          Product
-            .findById({ _id: req.params._id })
-            .then(dbModel => dbModel.remove())
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        findCategory: function(req, res) {
-          Product
-            .find({category_type: "Accent Furniture"})
-              .then(dbModel => res.json(dbModel))
-              .catch(err => res.status(422).json(err));
-        }
+module.exports= {
+    getBathAccessories: function(req, res) {
+      BathAccessorie
+        .find(req.query)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    // add
+    addBathAccessorie: function(req, res) {
+      BathAccessorie
+        .create(req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    getBathAccessorieById: function(req, res) {
+      BathAccessorie
+        .findById(req.params._id)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    updateBathAccessorie: function(req, res) {
+      BathAccessorie
+        .findOneAndUpdate({ _id: req.params._id }, req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    deleteBathAccessorie: function(req, res) {
+      BathAccessorie
+        .findById({ _id: req.params._id })
+        .then(dbModel => dbModel.remove())
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      }
 };

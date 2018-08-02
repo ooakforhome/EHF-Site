@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const accentfurnitureSchema = new Schema({
+const gardenSchema = new Schema({
   Product_Name: {type: String},
-  category_type: { type: String, default: "Accent Furniture" },
+  category_type: { type: String, default: "Garden Barrels" },
   SKU: {type: String},
   images: {type: String},
   Product_Shipping_Weight: {type: Number},
@@ -43,36 +43,36 @@ const accentfurnitureSchema = new Schema({
   Warranty: {type: String}
 })
 
-const Accentfurniture = module.exports = mongoose.model ('Accentfurniture', accentfurnitureSchema);
+const Garden = module.exports = mongoose.model('Garden', gardenSchema);
 
 module.exports= {
-    getAccentfurnitures: function(req, res) {
-      Accentfurniture
+    getGardens: function(req, res) {
+      Garden
         .find(req.query)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
       },
     // add
-    addAccentfurniture: function(req, res) {
-      Accentfurniture
+    addGarden: function(req, res) {
+      Garden
         .create(req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
       },
-    getAccentfurnituresById: function(req, res) {
-      Accentfurniture
+    getGardenById: function(req, res) {
+      Garden
         .findById(req.params._id)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
       },
-    updateAccentfurniture: function(req, res) {
-      Accentfurniture
+    updateGarden: function(req, res) {
+      Garden
         .findOneAndUpdate({ _id: req.params._id }, req.body)
         .then(dbModel => res.json(dbModel))
         .catch(err => res.status(422).json(err));
       },
-    deleteAccentfurniture: function(req, res) {
-      Accentfurniture
+    deleteGarden: function(req, res) {
+      Garden
         .findById({ _id: req.params._id })
         .then(dbModel => dbModel.remove())
         .then(dbModel => res.json(dbModel))

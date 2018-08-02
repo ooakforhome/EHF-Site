@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// var FileSchema = new Schema({}, { strict: false, collection: 'uploads.files' });
-
-//----database model-----
-var productSchema = new Schema({
-  category_type: {type: String},
+const bathhardwareSchema = new Schema({
   Product_Name: {type: String},
-  SKU: {type: String},
+  category_type: { type: String, default: "Bath Hardware" },
+  SKU: {type: String, default: "N/A"},
   images: {type: String},
   Product_Shipping_Weight: {type: Number},
   Product_Weight: {type: Number},
@@ -33,10 +30,10 @@ var productSchema = new Schema({
   Feature_3: { type: String },
   Feature_4: { type: String },
   Feature_5: { type: String },
-  Feature_6: { type: String },
-  Feature_7: { type: String },
-  Feature_8: { type: String },
-  Feature_9: { type: String },
+  Feature_6: { type: String, default: "" },
+  Feature_7: { type: String, default: "" },
+  Feature_8: { type: String, default: "" },
+  Feature_9: { type: String, default: "" },
   Maximum_Shelf_Weight_Capacity: { type: Number },
   Care_Instructions: { type: String },
   Assembly_required: { type: String },
@@ -64,45 +61,39 @@ var productSchema = new Schema({
   Product_Diameter: { type: Number}
 })
 
-const Product = module.exports = mongoose.model ('Product', productSchema);
+const BathHardware = module.exports = mongoose.model ('BathHardware', bathhardwareSchema);
 
-module.exports = {
-        getProducts: function(req, res) {
-          Product
-            .find(req.query)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        // add
-        addProduct: function(req, res) {
-          Product
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        getProductsById: function(req, res) {
-          Product
-            .findById(req.params._id)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        updateProduct: function(req, res) {
-          Product
-            .findOneAndUpdate({ _id: req.params._id }, req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        deleteProduct: function(req, res) {
-          Product
-            .findById({ _id: req.params._id })
-            .then(dbModel => dbModel.remove())
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.status(422).json(err));
-    },
-        findCategory: function(req, res) {
-          Product
-            .find({category_type: "Accent Furniture"})
-              .then(dbModel => res.json(dbModel))
-              .catch(err => res.status(422).json(err));
-        }
+module.exports= {
+    getBathHardwares: function(req, res) {
+      BathHardware
+        .find(req.query)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    // add
+    addBathHardware: function(req, res) {
+      BathHardware
+        .create(req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    getBathHardwareById: function(req, res) {
+      BathHardware
+        .findById(req.params._id)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    updateBathHardware: function(req, res) {
+      BathHardware
+        .findOneAndUpdate({ _id: req.params._id }, req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      },
+    deleteBathHardware: function(req, res) {
+      BathHardware
+        .findById({ _id: req.params._id })
+        .then(dbModel => dbModel.remove())
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+      }
 };

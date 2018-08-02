@@ -1,14 +1,12 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchBath } from '../../../actions/bathActionCreator';
+import { fetchBathAccessorie } from '../../../actions/bathActionCreator';
+// import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
 import API from '../../../utils/API';
 import './detail.css'
 import { DetailPage } from '../../componentParts/DetailTemp/DetailTemp';
-// import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
-// import {ImgUpdate} from '../../componentParts/ImgUpdate/ImgUpdate'
-// import { Link } from 'react-router-dom'
 
-class ProductDetail extends Component {
+class BathAccessorieDetail extends Component {
   constructor(props){
     super(props)
         this.state = {
@@ -20,11 +18,11 @@ class ProductDetail extends Component {
  }
 
  componentWillMount() {
-   this.props.fetchBath(this.props.match.params.id);
+   this.props.fetchBathAccessorie(this.props.match.params.id);
  }
 
  componentDidMount =()=> {
-   this.props.fetchBath(this.props.match.params.id);
+   this.props.fetchBathAccessorie(this.props.match.params.id);
  }
 
   onChanges = (e) => {
@@ -60,19 +58,18 @@ class ProductDetail extends Component {
   submitEdit = (e) => {
     e.preventDefault()
     API.updateProduct(this.props.match.params.id, {
-      name: this.state.name,
+      Product_Name: this.state.Product_Name,
       images: this.state.images,
-      color: this.state.color,
-      pkg_width: this.state.pkg_width,
-      pkg_height: this.state.pkg_height,
-      pkg_depth: this.state.pkg_depth,
-      actual_width: this.state.actual_width,
-      actual_height: this.state.actual_height,
-      actual_depth: this.state.actual_depth
+      Color: this.state.Color,
+      Packing_Carton_Width: this.state.Packing_Carton_Width,
+      Packing_Carton_Height: this.state.Packing_Carton_Height,
+      Packing_Carton_Depth: this.state.Packing_Carton_Depth,
+      Actual_Product_Width: this.state.Actual_Product_Width,
+      Actual_Product_Height: this.state.Actual_Product_Height,
+      Actual_Product_Length: this.state.Actual_Product_Length
     })
       .then(res => window.location.reload())
   }
-
 
   render(){
 
@@ -88,4 +85,4 @@ class ProductDetail extends Component {
     bathItem: state.bathItems.item
   });
 
-export default connect(mapStateToProps, { fetchBath } ) (ProductDetail);
+export default connect(mapStateToProps, { fetchBathAccessorie } ) (BathAccessorieDetail);

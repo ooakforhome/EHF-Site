@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { fetchHardware } from '../../../actions/bathActionCreator';
 import './detail.css'
 import { DetailPage } from '../../componentParts/DetailTemp/DetailTemp';
@@ -14,6 +15,11 @@ class BathHardwareDetail extends Component {
 
     return (
       <div className="detailPage">
+        <div className="backNav">
+            <Link to="/productpage/all">
+              <button className="backButton">BACK TO PRODUCTS PAGE</button>
+            </Link>
+        </div>
         <DetailPage item={this.props.bathItem}/>
       </div>
       );

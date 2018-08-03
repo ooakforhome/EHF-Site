@@ -1,0 +1,39 @@
+.detail_container {
+  background-color: lightblue;
+  padding:10px;
+  height: 100%;
+  float:left;
+  color: black;
+}
+
+.w50block {
+  float: left;
+  width: 50%;
+  height: 100%;
+}
+
+.detail_descriptions {
+  width: 100%;
+  float:left;
+  padding: 10px 0;
+}
+
+.detail_image {
+  width:90%;
+  margin:auto;
+}
+
+.carton_block {
+  box-shadow: 2px 2px 2px gray;
+  background-color: white;
+}
+
+.inner_carton_block {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.carton_block_img {
+  width:100%;
+}

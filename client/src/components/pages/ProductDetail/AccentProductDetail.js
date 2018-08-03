@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import { fetchAccent } from '../../../actions/accentActionCreator';
 import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
 // import {ImgUpdate} from '../../componentParts/ImgUpdate/ImgUpdate'
@@ -77,6 +77,12 @@ class AccentProductDetail extends Component {
 
     return (
       <div className="detailPage">
+        <div className="backNav">
+            <Link to="/productpage/all">
+              <button className="backButton">BACK TO PRODUCTS PAGE</button>
+            </Link>
+        </div>
+
         <DetailPage item = {this.props.accentItem}/>
 
         <hr />
@@ -85,8 +91,6 @@ class AccentProductDetail extends Component {
            submitEdit = {this.submitEdit}
            onChanges = {this.onChanges}
            />
-
-
         </div>
       </div>
       );

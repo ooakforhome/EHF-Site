@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchBathAccessorie } from '../../../actions/bathActionCreator';
-// import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
+import { Link } from 'react-router-dom';
 import API from '../../../utils/API';
 import './detail.css'
 import { DetailPage } from '../../componentParts/DetailTemp/DetailTemp';
@@ -75,7 +75,13 @@ class BathAccessorieDetail extends Component {
 
     return (
       <div className="detailPage">
-        <DetailPage item={this.props.bathItem}/>
+        <div className="backNav">
+            <Link to="/productpage/all">
+              <button className="backButton">BACK TO PRODUCTS PAGE</button>
+            </Link>
+        </div>
+
+          <DetailPage item={this.props.bathItem}/>
       </div>
       );
     }

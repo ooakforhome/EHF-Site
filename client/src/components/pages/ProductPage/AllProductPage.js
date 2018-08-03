@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchProducts } from '../../../actions/productsActions';
-import {Prender} from '../../componentParts/PageList/Plist';
-import { Link } from 'react-router-dom';
+import { NPrender } from '../../componentParts/PageList/NPlist';
 import "./allproduct.css";
 
 //SPD to AllProductPage
@@ -13,22 +12,28 @@ class AllProductPage extends Component {
     this.props.fetchProducts();
   }
 
+  handleClick=(e)=>{
+      e.preventDefault();
+        window.location ='/productdetail/'+ e.target.value;
+  }
+
   render() {
-    const Plist = ({products}) => (
+    const NPlist = ({products}) => (
       <div>
         {products.map((product, i) =>
-          <Prender  key={i}
-                  {...product}/>
+          <NPrender key={i}
+                  {...product}
+                  handleClick={this.handleClick.bind(this)}
+                  />
         )}
       </div>
     )
     return(
       <div>
         <h1>Products ALL</h1>
-        <Link to="/newproductform">
-          <button>Add Product</button>
-        </Link>
-        <Plist products = {this.props.kposts}/>
+        <div>
+          <NPlist products = {this.props.newproducts}/>
+        </div>
       </div>
     );
   }
@@ -36,7 +41,7 @@ class AllProductPage extends Component {
 
 
 const mapStateToProps = state => ({
-  kposts: state.kposts.items
+  newproducts: state.newproducts.items
 });
 
 export default connect(mapStateToProps, { fetchProducts })(AllProductPage);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { fetchOne } from '../../../actions/productsActions';
 import { UpdateParts } from '../../componentParts/UpdateProdcutParts/UpdateParts';
-import {ImgUpdate} from '../../componentParts/ImgUpdate/ImgUpdate'
+import { DetailPage } from '../../componentParts/DetailTemp/DetailTemp';
 import API from '../../../utils/API';
 import './detail.css'
 
@@ -12,42 +12,13 @@ class ProductDetail extends Component {
     super(props)
         this.state = {
         product: [],
-        images: this.props.images
       }
-      this._handleImageChange = this._handleImageChange.bind(this);
       this._handleSubmit = this._handleSubmit.bind(this);
  }
 
  componentWillMount() {
    this.props.fetchOne(this.props.match.params.id);
  }
-
- componentDidMount =()=> {
-   this.props.fetchOne(this.props.match.params.id);
- }
-
-  onChanges = (e) => {
-    this.setState({
-      [e.target.name]: e.target.value
-    })
-  }
-
-  loadImg = () => {
-    API.getLastImg()
-      .then( res =>
-        this.setState({
-          images: res.data
-        })
-      )
-      .catch( err => console.log(err));
-  }
-
-  _handleImageChange(e) {
-    e.preventDefault();
-      this.setState({
-        file: e.target.files[0]
-      });
-  }
 
   _handleSubmit = e => {
     e.preventDefault();
@@ -74,46 +45,25 @@ class ProductDetail extends Component {
 
 
   render(){
-      const { post } = this.props;
     return (
       <div className="detailPage">
         <div className="item_container" style={{visibility: 'visible'}}>
           <div className="backNav">
-              <Link to="/allproductpage">
+              <Link to="/productpage/all">
                 <button className="backButton">BACK TO PRODUCTS PAGE</button>
               </Link>
           </div>
-          <ImgUpdate
-            _handleSubmit = {this._handleSubmit}
-            _handleImageChange = {this._handleImageChange}
-          />
-           <hr />
-          <div className="product_box">
-            <div className="item_img">
-              <img className="tImg"
-                 alt={post._id}
-                 src={"http://localhost:3001/api/image/"+post.images}
-              />
-            </div>
-            <div>
-              <p>Category: {post.category_type}</p>
-            </div>
-            <div className="item_info_box">
-             <p className="item_name">Product Name: {post.name}</p>
-             <p>SKU: {post.sku}</p>
-             <p>Materials: {post.materials}</p>
-             <p className="item_color"> Color: {post.color}</p>
-             <p className="item_size"> Package Dimensions: {post.pkg_width}W x {post.pkg_height}H x {post.pkg_depth}D </p>
-             <p className="item_size"> Actural Dimensions: {post.actual_width}W x {post.actual_height}H x {post.actual_depth}D </p>
-            </div>
-          </div>
-        </div>
 
-        <div className="updateBlock">
-          <UpdateParts
-           submitEdit = {this.submitEdit}
-           onChanges = {this.onChanges}
-           />
+           <div className="detailPage">
+             <DetailPage item={this.props.newproduct}/>
+           </div>
+
+          <div className="updateBlock">
+            <UpdateParts
+             submitEdit = {this.submitEdit}
+             onChanges = {this.onChanges}
+             />
+          </div>
         </div>
       </div>
       );
@@ -121,7 +71,7 @@ class ProductDetail extends Component {
   }
 
   const mapStateToProps = state => ({
-    post: state.posts.item
+    newproduct: state.newproducts.item
   });
 
 export default connect(mapStateToProps, { fetchOne } ) (ProductDetail);

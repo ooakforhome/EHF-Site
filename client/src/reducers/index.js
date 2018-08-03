@@ -7,7 +7,7 @@ import smallProductsReducer from './smallProductsReducer';
 import { reducer as formReducer } from "redux-form";
 
 const rootReducer = combineReducers({
-  kposts: postReducer,
+  newproducts: postReducer,
   smallItems: smallProductsReducer,
   bathItems: bathReducer,
   petItems: petReducer,

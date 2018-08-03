@@ -21,7 +21,6 @@ import GardenBarrelsPage from './components/pages/ProductPage/GardenBarrelsPage'
 import OutdoorLightingPage from './components/pages/ProductPage/OutdoorLightingPage';
 
 // component different pages
-import NewProductForm  from './components/pages/NewProductForm/NewProductForm';
 import ProductDetail from './components/pages/ProductDetail/ProductDetail';
 import PetProductDetail from './components/pages/ProductDetail/PetProductDetail';
 import AccentProductDetail from './components/pages/ProductDetail/AccentProductDetail';
@@ -39,7 +38,7 @@ import GardenBarrelsDetail from './components/pages/ProductDetail/GardenBarrelsD
 import OutdoorLightingDetail from './components/pages/ProductDetail/OutdoorLightingDetail';
 
 import { UploadImg } from './components/pages/UploadImgs/UploadImgs';
-
+import NewProductForm  from './components/pages/NewProductForm/NewProductForm';
 
 const App = () =>
   <Router>

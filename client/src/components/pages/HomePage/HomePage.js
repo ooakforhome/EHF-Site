@@ -55,7 +55,7 @@ export class HomePage extends Component {
 										placeholder='password' />
 						<input className='fp_submit' type="submit" value="Submit" />
 				  </form>
-					<Link to="/AllProductPage">
+					<Link to="/productpage/Accent_Furniture">
 						<button>All Products</button>
 					</Link>
 					<Link to="/newproductform">

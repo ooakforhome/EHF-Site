@@ -1,4 +1,5 @@
 import React from 'react';
+import './style.css';
 // import { Link } from 'react-router-dom';
 
 // const handleClick=(e)=>{
@@ -10,7 +11,7 @@ export const NPrender = ({_id, Product_Name, category_type, images, Color, Produ
     <div className="item_container">
       <div className="innerBody">
         <div className="item_img">
-          <img className="tImg" alt={Product_Name} src={"http://localhost:3001/api/image/"+ images}/>
+          <img src={(`${images}` === 'undefined' || "a" || "")? `https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg` :`http://localhost:3001/api/image/${images}`  } alt={Product_Name} className="nprender_image"/>
         </div>
         <div><p>Category: {category_type}</p></div>
         <div className="item_info_box">

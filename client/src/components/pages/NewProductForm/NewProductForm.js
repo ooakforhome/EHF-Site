@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-// import { ShowImg } from "../UploadImgs/ShowImg";
-import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
 import API from "../../../utils/API";
+// import { ShowImg } from "../UploadImgs/ShowImg";
 // import { Link } from "react-router-dom";
 import './newProductForm.css';
 
@@ -13,32 +13,39 @@ class NewProductForm extends Component {
 
   constructor (props){
     super(props)
-        this.state = {
-          imgId: ''
-        }
-        this._handleImageChange = this._handleImageChange.bind(this);
-        this._handleSubmit = this._handleSubmit.bind(this);
+        // this.state = {
+        //   images: 'null'
+        // }
+        // this._handleImageChange = this._handleImageChange.bind(this);
+        // this._handleSubmit = this._handleSubmit.bind(this);
   }
 
-  componentDidMount(){
-    this.setState({imgId:"update"})
+  // _handleImageChange = (e) => {
+  //   e.preventDefault();
+  //     this.setState({
+  //       file: e.target.files[0]
+  //     });
+  // }
+  //
+  // _handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   let formData = new FormData();
+  //
+  //   formData.append('file', this.state.file);
+  //   API.uploadImg(formData)
+  //   .then(res => console.log(res.data))
+  //   // e.target.reset()
+  // }
+
+  onSubmit = (values) => {
+    // values.preventDefault();
+    // values.images = this.state.images[0].filename;
+    API.addProduct(values)
+      .then(res => console.log(res))
+      // .then(()=> window.location = '/productpage/all')
   }
 
-  componentDidUpdate(){
-    this.loadImg();
-  }
-
-  loadImg = () => {
-    API.getLastImg()
-      .then( res =>
-        this.setState({
-          imgId: res.data
-        })
-      )
-      .catch( err => console.log(err));
-  }
-
-  renderField(field) {
+  renderField = (field) => {
     return(
       <div className={field.className}>
         <p>{field.label}</p>
@@ -46,30 +53,6 @@ class NewProductForm extends Component {
           {...field.input} />
       </div>
     );
-  }
-
-  _handleImageChange(e) {
-    e.preventDefault();
-      this.setState({
-        file: e.target.files[0]
-      });
-  }
-
-  _handleSubmit = e => {
-    e.preventDefault();
-    let formData = new FormData();
-
-    formData.append('file', this.state.file);
-    // console.log(this.state.file);
-    API.uploadImg(formData)
-    e.target.reset()
-    this.loadImg();
-  }
-
-  onSubmit(values) {
-    values.images = this.state.imgId[0].filename;
-    API.addProduct(values)
-      .then(()=> window.location = '/productpage/all')
   }
 
   render(){
@@ -84,10 +67,8 @@ class NewProductForm extends Component {
         <h1>ADD PRODUCT</h1>
 
         <div className="img_div">
-          <ImgUpload />
-          <div>
-            <img className="img_size" alt="test" src={"http://localhost:3001/api/image/"+this.state.imgId} />
-          </div>
+
+
         </div>
         <hr />
 
@@ -102,7 +83,7 @@ class NewProductForm extends Component {
                   <option value="Bath Accessories">Bath Accessories</option>
                   <option value="Hooks And Rods">Hooks And Rods</option>
                   <option value="Bath Hardware">Bath Hardware</option>
-                  <option value="Over The">Over The</option>
+                  <option value="Over The Door">Over The Door</option>
                   <option value="Window Hardware">Window Hardware</option>
                   <option value="Window Panels">Window Panels</option>
                   <option value="Shower Curtain">Shower Curtain</option>

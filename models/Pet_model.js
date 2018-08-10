@@ -7,6 +7,7 @@ const petSchema = new Schema({
   SKU : { type: String },
   Product_Shipping_Weight: {type: Number},
   Product_Weight: {type: Number},
+  images: {type: String, default: "null" },
   Cubic_Feet: {type: Number},
   UPC : { type: String },
   Color : { type: String },

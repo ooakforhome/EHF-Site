@@ -1,15 +1,30 @@
-const path = require('path');
-const crypto = require('crypto');
-const multer = require('multer');
-const GridFsStorage = require('multer-gridfs-storage');
-const Grid = require('gridfs-stream');
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const router = require("express").Router();
+const path = require('path');
+const crypto = require ('crypto');
+const multer = require('multer');
+const GridFsStorage = require('multer-gridfs-storage');
+const Grid = require('gridfs-stream');
 
+const app = express();
+const PORT = process.env.PORT || 3001;
+
+app.use(bodyParser.json());
+app.use(express.static("client/public"));
+// Set up promises with mongoose
+mongoose.Promise = global.Promise;
+
+//----edit
+// Mongo URI
 const mongoURI = "mongodb://localhost/EHF";
 const conn = mongoose.createConnection(mongoURI);
+//----edit end
+
+mongoose.connect( process.env.MONGODB_URI || mongoURI)
+
+const routes = require("./controllers/ehfController");
+app.use(routes);
 
 let gfs;
 
@@ -43,13 +58,13 @@ const storage = new GridFsStorage({
 const upload = multer({ storage });
 
 // upload images
-router.post('/api/uploads', upload.single('file'), (req, res) => {
+app.post('/api/uploads', upload.single('file'), (req, res) => {
   // console.log(req.file);
 	  res.json({'msg': 'File uploaded successfully!', 'file': req.file});
 })
 
 //read all getImages
-router.get('/api/files', (req, res) =>{
+app.get('/api/files', (req, res) =>{
   gfs.files.find().toArray((err, files)=>{
     // Check if files
     if(!files || files.length === 0) {
@@ -63,7 +78,7 @@ router.get('/api/files', (req, res) =>{
 });
 
 //----find last image by ID
-// router.get('/api/fileid', (req, res) =>{
+// app.get('/api/fileid', (req, res) =>{
 //   gfs.files.find().sort({_id:-1}).limit(1).toArray((err, files)=>{
 //     if(!files || files.length === 0) {
 //       return res.status(404).json({
@@ -76,14 +91,14 @@ router.get('/api/files', (req, res) =>{
 // });
 //-------------
 
-router.delete('/api/files/:_id', (req, res) => {
+app.delete('/api/files/:_id', (req, res) => {
   gfs.files.remove({ _id })
   .then(res=> console.log("deleted successfully"))
 })
 
 // @route GET /image/:filename
 // @desc Display image
-    router.get('/api/image/:filename', (req, res) =>{
+    app.get('/api/image/:filename', (req, res) =>{
       gfs.files.findOne({filename: req.params.filename}, (err, file) => {
         if(!file || file.length === 0) {
           return res.status(404).json({
@@ -104,7 +119,7 @@ router.delete('/api/files/:_id', (req, res) => {
     });
 //----edit end
 
-    router.get('/api/images/:metadata', (req, res) =>{
+    app.get('/api/images/:metadata', (req, res) =>{
         console.log(req.params.metadata);
       gfs.files.findOne({metadata: req.params.metadata}, (err, file) => {
     console.log(file);
@@ -120,4 +135,8 @@ router.delete('/api/files/:_id', (req, res) => {
   })
 });
 
-module.exports = router;
+//------------------------------------------------------------------------------
+// Start the API server
+app.listen(PORT, function() {
+  console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
+});

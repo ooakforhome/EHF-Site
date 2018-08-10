@@ -19,7 +19,7 @@ const ShowerCurtain = require('../models/Shower_Curtain_model');
 const BeautyDevice = require('../models/Beauty_device_model');
 const Garden = require('../models/Garden_model');
 const OutdoorLighting = require('../models/Outdoor_lighting_model');
-
+ 
 //router
 router.route("/api/products")
     .get(Product.getProducts)

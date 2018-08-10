@@ -2,25 +2,26 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { createPost } from '../../../actions/productsActions';
 import { Field, reduxForm } from "redux-form";
-// import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
+// import { ShowImg } from "../UploadImgs/ShowImg";
+import { ImgUpload } from '../../componentParts/ImgUpload/ImgUpload';
 import API from "../../../utils/API";
 // import { Link } from "react-router-dom";
 import './newProductForm.css';
 
-//Change SpdForm to NewProductForm
+
 class NewProductForm extends Component {
 
   constructor (props){
     super(props)
         this.state = {
-          imgId: []
+          imgId: ''
         }
         this._handleImageChange = this._handleImageChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
   }
- 
+
   componentDidMount(){
-    this.setState({imgId:["update"]})
+    this.setState({imgId:"update"})
   }
 
   componentDidUpdate(){
@@ -54,8 +55,6 @@ class NewProductForm extends Component {
       });
   }
 
-
-
   _handleSubmit = e => {
     e.preventDefault();
     let formData = new FormData();
@@ -69,33 +68,29 @@ class NewProductForm extends Component {
 
   onSubmit(values) {
     values.images = this.state.imgId[0].filename;
-    console.log(values)
     API.addProduct(values)
-      .then(()=> window.location = '/allproductpage')
+      .then(()=> window.location = '/productpage/all')
   }
 
   render(){
     const { handleSubmit } = this.props;
 
+      // if(!files){
+      //   return <div>wait for image</div>
+      // }
     return(
       <div className="spdFormContainer">
         <div className="spdFormInnerContainer">
         <h1>ADD PRODUCT</h1>
-        <form
-            encType="multipart/form-data"
-            onSubmit={this._handleSubmit} >
-          <input
-            className="fileInput inlineBlk"
-            type="file"
-            name= "file"
-            id="file"
-            onChange={this._handleImageChange} />
-           <button
-             className="saveBtn inlineBlk"
-             type="submit">
-                save
-           </button>
-        </form>
+
+        <div className="img_div">
+          <ImgUpload />
+          <div>
+            <img className="img_size" alt="test" src={"http://localhost:3001/api/image/"+this.state.imgId} />
+          </div>
+        </div>
+        <hr />
+
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <div>
             <p>Category Type</p>
@@ -118,44 +113,44 @@ class NewProductForm extends Component {
             </Field>
           </div>
           <Field
-            label="name"
-            name="name"
+            label="Product Name"
+            name="Product_Name"
             className="input_box"
             component={this.renderField}
           />
           <Field
-            label="sku"
-            name="sku"
+            label="SKU"
+            name="SKU"
             className="input_box_small"
             component={this.renderField}
           />
           <Field
-            label="materials"
-            name="materials"
+            label="Materials"
+            name="Materials"
             className="input_box"
             component={this.renderField}
           />
           <Field
-            label="color"
-            name="color"
+            label="Color"
+            name="Color"
             className="input_box_small"
             component={this.renderField}
           />
           <Field
-            label="ship-weight"
-            name="shipping_weight"
+            label="ship weight"
+            name="Product_Shipping_Weight"
             className="input_box_small"
             component={this.renderField}
           />
           <Field
-            label="product_weight"
-            name="product_weight"
+            label="product weight"
+            name="Product_Weight"
             className="input_box_small"
             component={this.renderField}
           />
           <Field
-            label="cartons"
-            name="cartons"
+            label="# Cartons"
+            name="Number_of_Cartons"
             className="input_box_small"
             component={this.renderField}
           />
@@ -170,7 +165,7 @@ class NewProductForm extends Component {
               <div>
                 <label className="form_radio">
                   <Field
-                    name="assembly_required"
+                    name="Assembly_required"
                     component="input"
                     type="radio"
                     value="YES"
@@ -179,7 +174,7 @@ class NewProductForm extends Component {
                 </label>
                 <label className="form_radio">
                   <Field
-                    name="assembly_required"
+                    name="Assembly_required"
                     component="input"
                     type="radio"
                     value="NO"
@@ -190,20 +185,49 @@ class NewProductForm extends Component {
           </div>
           <Field
             label="care_instructions"
-            name="care_instructions"
-            className="input_box"
-            component={this.renderField}
-          />
-
-          <Field
-            label="detail_measurement"
-            name="detail_measurement"
+            name="Care_Instructions"
             className="input_box"
             component={this.renderField}
           />
           <Field
             label="features"
-            name="features"
+            name="Feature_1"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_2"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_3"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_4"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_5"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_6"
+            className="input_box"
+            component={this.renderField}
+          />
+          <Field
+            label="features"
+            name="Feature_7"
             className="input_box"
             component={this.renderField}
           />
@@ -211,19 +235,19 @@ class NewProductForm extends Component {
           <div className="size_box">
               <Field
                 label="pkg_width"
-                name="pkg_width"
+                name="Packing_Carton_Width"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="pkg_height"
-                name="pkg_height"
+                name="Packing_Carton_Height"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="pkg_depth"
-                name="pkg_depth"
+                name="Packing_Carton_Depth"
                 className="input_box_small"
                 component={this.renderField}
               />
@@ -231,19 +255,19 @@ class NewProductForm extends Component {
           <div className="size_box">
               <Field
                 label="actual_width"
-                name="actual_width"
+                name="Actual_Product_Width"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="actual_height"
-                name="actual_height"
+                name="Actual_Product_Height"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="actual_depth"
-                name="actual_depth"
+                name="Actual_Product_Length"
                 className="input_box_small"
                 component={this.renderField}
               />
@@ -251,19 +275,19 @@ class NewProductForm extends Component {
           <div className="size_box">
               <Field
                 label="shelf_length"
-                name="shelf_length"
+                name="Shelf_Length"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="shelf_width"
-                name="shelf_width"
+                name="Shelf_Width"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="inches_btw_shelf"
-                name="inches_btw_shelf"
+                name="Inches_in_between_shelf"
                 className="input_box_small"
                 component={this.renderField}
               />
@@ -272,19 +296,19 @@ class NewProductForm extends Component {
           <div className="size_box">
               <Field
                 label="drawer_length"
-                name="drawer_length"
+                name="Drawer_Length"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="drawer_width"
-                name="drawer_width"
+                name="Drawer_Width"
                 className="input_box_small"
                 component={this.renderField}
               />
               <Field
                 label="drawer_height"
-                name="drawer_height"
+                name="Drawer_height"
                 className="input_box_small"
                 component={this.renderField}
               />
@@ -292,7 +316,7 @@ class NewProductForm extends Component {
           <div>
             <Field
               label="product description"
-              name="product_description"
+              name="Product_Description"
               className="input_box_max"
               component={this.renderField}
             />
@@ -301,49 +325,31 @@ class NewProductForm extends Component {
           <div className="other_box">
               <Field
                 label="shelf_weight_capacity"
-                name="shelf_weight_capacity"
-                className="input_box"
-                component={this.renderField}
-              />
-              <Field
-                label="solar_panel"
-                name="solar_panel"
-                className="input_box"
-                component={this.renderField}
-              />
-              <Field
-                label="led_color"
-                name="led_color"
+                name="Maximum_Shelf_Weight_Capacity"
                 className="input_box"
                 component={this.renderField}
               />
               <Field
                 label="led"
-                name="led"
+                name="LED"
                 className="input_box"
                 component={this.renderField}
               />
               <Field
                 label="uv"
-                name="uv"
+                name="UV"
                 className="input_box"
                 component={this.renderField}
               />
               <Field
-                label="battery_included"
-                name="battery_included"
+                label="battery included"
+                name="Battery_included"
                 className="input_box"
                 component={this.renderField}
               />
               <Field
-                label="battery_type"
-                name="battery_type"
-                className="input_box"
-                component={this.renderField}
-              />
-              <Field
-                label="capacity"
-                name="capacity"
+                label="Battery type"
+                name="Battery_type"
                 className="input_box"
                 component={this.renderField}
               />

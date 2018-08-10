@@ -13,7 +13,6 @@ class ProductDetail extends Component {
     super(props)
         this.state = {
         product: [],
-        images: this.props.images
       }
       this._handleImageChange = this._handleImageChange.bind(this);
       this._handleSubmit = this._handleSubmit.bind(this);
@@ -24,19 +23,8 @@ class ProductDetail extends Component {
  }
 
  componentDidMount =()=> {
-   this.props.fetchOne(this.props.match.params.id)
+   this.props.fetchOne(this.props.match.params.id);
  }
-
-v
-
-loadImage = () =>{
-  API.getLastImg()
-    .then( res =>
-      this.setState({
-        images: res.data[0].filename
-      })
-    )
-}
 
  onChanges = (e) => {
    this.setState({
@@ -56,12 +44,9 @@ loadImage = () =>{
    let formData = new FormData();
    formData.append('file', this.state.file);
    API.uploadImg(formData)
-   .then(
-     setTimeout(API.updateProduct(this.props.match.params.id, {
-       images: this.state.images
-     }), 3000)
-   )
-   // API.updateProduct(this.props.match.params.id, {'images':formData.id})
+   .then(res => {
+     console.log("hello");
+   })
  }
 
   submitEdit = (e) => {
@@ -70,6 +55,7 @@ loadImage = () =>{
       Product_Name: this.state.Product_Name,
       SKU: this.state.SKU,
       Materials: this.state.Materials,
+      images: this.state.images,
       Color: this.state.Color,
       Packing_Carton_Width: this.state.Packing_Carton_Width,
       Packing_Carton_Height: this.state.Packing_Carton_Height,
@@ -83,7 +69,11 @@ loadImage = () =>{
 
 
   render(){
-
+    // const { files } = this.props;
+    //
+    //     if (!files) {
+    //       return <div>Loading...</div>;
+    //     }
     return (
       <div className="detailPage">
         <div className="item_container" style={{visibility: 'visible'}}>

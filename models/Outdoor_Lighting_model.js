@@ -5,7 +5,7 @@ const outdoorLightSchema = new Schema({
   Product_Name: {type: String},
   category_type: { type: String, default: "Outdoor Lighting" },
   SKU: {type: String},
-  images: {type: String},
+  images: {type: String, default: "null" },
   Product_Shipping_Weight: {type: Number},
   Product_Weight: {type: Number},
   UPC: {type: String},

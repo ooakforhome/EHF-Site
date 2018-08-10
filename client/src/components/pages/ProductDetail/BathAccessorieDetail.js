@@ -41,24 +41,26 @@ class BathAccessorieDetail extends Component {
       .catch( err => console.log(err));
   }
 
-  _handleImageChange(e) {
-    e.preventDefault();
-      this.setState({
-        file: e.target.files[0]
-      });
-  }
+  // _handleImageChange(e) {
+  //   e.preventDefault();
+  //     this.setState({
+  //       file: e.target.files[0]
+  //     });
+  // }
 
-  _handleSubmit = e => {
-    e.preventDefault();
-    let formData = new FormData();
-    formData.append('file', this.state.file);
-    API.uploadImg(formData)
-  }
+  // _handleSubmit = e => {
+  //   e.preventDefault();
+  //   let formData = new FormData();
+  //   formData.append('file', this.state.file);
+  //   API.uploadImg(formData)
+  // }
 
   submitEdit = (e) => {
     e.preventDefault()
     API.updateProduct(this.props.match.params.id, {
       Product_Name: this.state.Product_Name,
+      SKU: this.state.SKU,
+      Materials: this.state.Materials,
       images: this.state.images,
       Color: this.state.Color,
       Packing_Carton_Width: this.state.Packing_Carton_Width,

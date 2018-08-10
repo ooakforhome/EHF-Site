@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchBath } from '../../../actions/bathActionCreator';
-import API from '../../../utils/API';
+// import API from '../../../utils/API';
 import { Link } from 'react-router-dom';
 import { DetailPage } from '../../componentParts/DetailTemp/DetailTemp';
 import './detail.css'
@@ -12,7 +12,7 @@ class BathProductDetail extends Component {
  componentWillMount() {
    this.props.fetchBath(this.props.match.params.id);
  }
- 
+
   render(){
 
     return (

@@ -7,7 +7,7 @@ const beautyDeviceSchema = new Schema({
   SKU: {type: String},
   Product_Shipping_Weight_kg: {type: String},
   Product_Weight_kg: {type: String},
-  images: {type: String},
+  images: {type: String, default: "null" },
   Product_Shipping_Weight: {type: Number},
   Product_Weight: {type: Number},
   UPC: {type: String},

@@ -44,7 +44,7 @@ const upload = multer({ storage });
 
 // upload images
 router.post('/api/uploads', upload.single('file'), (req, res) => {
-  // console.log(req.file);
+  console.log(req.file);
 	  res.json({'msg': 'File uploaded successfully!', 'file': req.file});
 })
 
@@ -63,17 +63,11 @@ router.get('/api/files', (req, res) =>{
 });
 
 //----find last image by ID
-// router.get('/api/fileid', (req, res) =>{
-//   gfs.files.find().sort({_id:-1}).limit(1).toArray((err, files)=>{
-//     if(!files || files.length === 0) {
-//       return res.status(404).json({
-//         err: 'No files exist'
-//       });
-//     }
-//     //Files exist
-//     return res.json(files);
-//   });
-// });
+router.get('/api/fileid', (req, res) =>{
+  gfs.files.find().limit(1).sort({_id:-1}).toArray((err, files)=>{
+    return res.json(files);
+  });
+});
 //-------------
 
 router.delete('/api/files/:_id', (req, res) => {

@@ -5,7 +5,7 @@ export const DetailPage = ({item}) => (
   <div className="detail_container">
     <div className="top_general">
       <div className="detail_item_image_block w50block">
-        <img src={(`${item.images}` === 'undefined' || "a" || "")? `https://upload.wikimedia.org/wikipedia/commons/a/ac/No_image_available.svg` :`http://localhost:3001/api/image/${item.images}`  } alt={item.Product_Name} className="detail_image"/>
+      <img src={`http://localhost:3001/api/image/${item.images}`} alt={item.Product_Name} className="detail_image"/>
       </div>
       <div className="detail_item_info_block w50block">
         {(item.Product_Name === "")? "" :<h1>{item.Product_Name}</h1>}
@@ -14,7 +14,7 @@ export const DetailPage = ({item}) => (
         {(item.Color === "")? "" : <p><b>Color</b> : {item.Color} </p>}
         {(item.Materials === "")? "" : <p><b>Materials</b> : {item.Materials} </p>}
         {(item.Product_Weight === "")? "" : <p><b>Product Weight</b> : {item.Product_Weight} </p>}
-        <p><b>Product Size</b>: {item.Actual_Product_Width} W X {item.Actual_Product_Length} L X {item.Actual_Product_Height} H</p>
+        <p><b>Product Size</b>: {item.Actual_Product_Width} W x {item.Actual_Product_Length} L x {item.Actual_Product_Height} H</p>
       </div>
     </div>
     <div className="detail_descriptions">
@@ -33,7 +33,7 @@ export const DetailPage = ({item}) => (
       <div className="inner_carton_block">
         <img alt="box" src="https://volumeintegration.com/wp-content/uploads/PackageIcon.png" className="carton_block_img" atl={item.Product_Name} />
         {(item.Product_Shipping_Weight === "")? "" : <p><b>Product Shipping Weight</b> : {item.Product_Shipping_Weight} LB</p>}
-        <p><b>Carton Width</b> : {item.Packing_Carton_Width} W X {item.Packing_Carton_Depth}L X {item.Packing_Carton_Height} H</p>
+        <p><b>Carton Width</b> : {item.Packing_Carton_Width} W x {item.Packing_Carton_Depth}L x {item.Packing_Carton_Height} H</p>
       </div>
     </div>
 

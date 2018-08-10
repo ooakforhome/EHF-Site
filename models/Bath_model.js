@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const bathSchema = new Schema({
   Product_Name: {type: String},
   category_type: { type: String, default: "Bathroom Furniture" },
-  images: {type: String, default: "a"},
+  images: {type: String, default: "null" },
   SKU: {type: String},
   Product_Shipping_Weight: {type: Number},
   Product_Weight: {type: Number},

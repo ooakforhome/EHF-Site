@@ -11,8 +11,11 @@ module.exports = {
     loaders: [
       {
         test: /\.js$/,
-        exclude: /(node_modules)/,
-        loader: ["babel-loader"],
+        exclude: /(node_modules | bower_components)/,
+        loader: "babel-loader",
+          options: {
+            presets: ['env']
+          }
         query: {
           presets: ["latest", "stage-0", "react"]
         }
